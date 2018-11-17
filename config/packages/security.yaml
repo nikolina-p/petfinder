@@ -4,8 +4,6 @@ security:
         user_db_provider:
             entity:
                 class: App\Entity\User
-                property: username
-
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
