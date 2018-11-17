@@ -39,7 +39,7 @@ class User implements UserInterface
      * @Assert\Length(max=4096)
      */
     private $plainPassword;
-    private $roles;
+    private $roles = [];
 
     public function __construct()
     {
@@ -48,6 +48,7 @@ class User implements UserInterface
         $this->setPassword("default");
         $this->setPlainPassword("default");
         $this->setUsername("example");
+        $this->roles[] = 'ROLE_USER';
 
     }
     public function getId(): int
