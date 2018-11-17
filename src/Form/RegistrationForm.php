@@ -23,8 +23,8 @@ class RegistrationForm extends AbstractType
             ->add('username', TextType::class)
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'firstOption' => ['label' => 'Password'],
-                'secondOption' => ['label' => 'Repeat Password']
+                'first_options' => ['label' => 'Password'],
+                'second_options' => ['label' => 'Repeat Password']
             ])
             ->add('termsAccepted', CheckboxType::class, [
                 'mapped' => false,

@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -37,7 +39,17 @@ class User implements UserInterface
      * @Assert\Length(max=4096)
      */
     private $plainPassword;
+    private $roles;
 
+    public function __construct()
+    {
+        $this->setId(0);
+        $this->setEmail("example@example.com");
+        $this->setPassword("default");
+        $this->setPlainPassword("default");
+        $this->setUsername("example");
+
+    }
     public function getId(): int
     {
         return $this->id;
@@ -55,6 +67,10 @@ class User implements UserInterface
         return $this;
     }
 
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
     public function getEmail(): string
     {
         return $this->email;
