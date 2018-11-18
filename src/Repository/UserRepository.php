@@ -37,20 +37,19 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?User
+
+    public function findOneById($value): ?User
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
+            ->andWhere('u.id = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
-    public function loadUserByUsername($username): string
+
+    public function loadUserByUsername($username): User
     {
-        die('123');
         return $this->createQueryBuilder("u")
             ->where('u.username  = :username OR u.email = :email')
             ->setParameter('username', $username)

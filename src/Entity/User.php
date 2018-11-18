@@ -6,11 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements UserInterface
+class User implements UserInterface, EquatableInterface
 {
     /**
      * @ORM\Id()
@@ -43,20 +44,15 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->setId(0);
-        $this->setEmail("example@example.com");
-        $this->setPassword("default");
-        $this->setPlainPassword("default");
-        $this->setUsername("example");
         $this->roles[] = 'ROLE_USER';
 
     }
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return $this->username;
     }
@@ -72,7 +68,7 @@ class User implements UserInterface
     {
         $this->id = $id;
     }
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -84,7 +80,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -96,7 +92,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPlainPassword(): string
+    public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }
@@ -122,5 +118,26 @@ class User implements UserInterface
         // The bcrypt and argon2i algorithms don't require a separate salt.
         // You *may* need a real salt if you choose a different encoder.
         return null;
+    }
+
+    public function isEqualTo(UserInterface $user)
+    {
+        if (!$user instanceof User) {
+            return false;
+        }
+
+        if ($this->password !== $user->getPassword()) {
+            return false;
+        }
+
+        if ($this->username !== $user->getUsername()) {
+            return false;
+        }
+
+        if ($this->email !== $user->getEmail()) {
+            return false;
+        }
+
+        return true;
     }
 }
