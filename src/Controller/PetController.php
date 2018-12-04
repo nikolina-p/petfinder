@@ -7,19 +7,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\PetForm;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class PetController extends AbstractController
 {
     /**
      * @Route("/new", name="new_pet")
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function new(Request $request)
+    public function new(Request $request) : Response
     {
         // creates a pet and creates a form for adding new pet
-        $pet = new Pet();
-        $form = $this->createForm(PetForm::class, $pet);
+        $form = $this->createForm(PetForm::class, $pet = new Pet());
 
         // 2) handle the submit (will only happen on POST)
         $form->handleRequest($request);
@@ -29,9 +28,6 @@ class PetController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($pet);
             $entityManager->flush();
-
-            // ... do any other work - like sending them an email, etc
-            // maybe set a "flash" success message for the user
 
             return $this->redirectToRoute('new_pet');
         }
