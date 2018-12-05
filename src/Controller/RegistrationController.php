@@ -28,10 +28,7 @@ class RegistrationController extends AbstractController
             $password = $userService->encodePassword($user);
             $user->setPassword($password);
 
-            // 4) save the User!
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $userService->persist($user);
 
             return $this->redirectToRoute('user_registration');
         }

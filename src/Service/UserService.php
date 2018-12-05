@@ -20,12 +20,9 @@ class UserService
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function save()
+    public function persist(User $user)
     {
-        //$entityManager = $this->getDoctrine()->getManager();
-        //$entityManager->persist($user);
-        //$entityManager->flush();
-
+        $this->userRepository->persist($user);
     }
 
     public function encodePassword(User $user) : string

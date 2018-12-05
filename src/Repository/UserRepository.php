@@ -40,6 +40,14 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->getOneOrNullResult();
     }
 
+    public function persist(User $user)
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
