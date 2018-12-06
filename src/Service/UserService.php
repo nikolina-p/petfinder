@@ -27,7 +27,8 @@ class UserService
 
     public function encodePassword(User $user) : string
     {
-        return $this->passwordEncoder->encodePassword($user, $user->getPlainPassword());
+        $p = $this->passwordEncoder->encodePassword($user, $user->getPlainPassword());
+        return $p;
     }
 
     public function isPasswordValid(UserInterface $user, $raw)
