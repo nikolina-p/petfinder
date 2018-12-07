@@ -20,11 +20,10 @@ class UserService
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function newUser(User $user): User
+    public function newUser(User $user): void
     {
         $user->setPassword($this->encodePassword($user));
         $this->persist($user);
-        return $user;
     }
     public function persist(User $user): void
     {
