@@ -21,21 +21,22 @@ class UserProvider extends EntityUserProvider implements UserProviderInterface
 
     public function loadUserByUsername($username): User
     {
-        $user = $this->userRepository->loadUserByUsername($username);
-        return $user;
+        return $this->userRepository->loadUserByUsername($username);
     }
 
     public function refreshUser(UserInterface $user)
     {
         if (!$user instanceof User) {
             throw new UnsupportedUserException();
-        }        if (!($reloadedUser = $this->userRepository->findOneById($user->getId()))) {
-        throw new UsernameNotFoundException('User does not exist.');
-    }        return $reloadedUser;
+        }
+        if (!($reloadedUser = $this->userRepository->findOneById($user->getId()))) {
+            throw new UsernameNotFoundException('User does not exist.');
+        }
+        return $reloadedUser;
     }
 
     public function supportsClass($class)
     {
-        return $class instanceof App\Entity\User;
+        return $class instanceof User;
     }
 }

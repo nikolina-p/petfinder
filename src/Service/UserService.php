@@ -20,19 +20,19 @@ class UserService
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function persist(User $user)
+    public function newUser(User $user): User
+    {
+        $user->setPassword($this->encodePassword($user));
+        $this->persist($user);
+        return $user;
+    }
+    public function persist(User $user): void
     {
         $this->userRepository->persist($user);
     }
 
     public function encodePassword(User $user) : string
     {
-        $p = $this->passwordEncoder->encodePassword($user, $user->getPlainPassword());
-        return $p;
-    }
-
-    public function isPasswordValid(UserInterface $user, $raw)
-    {
-        // TODO: Implement isPasswordValid() method.
+        return $this->passwordEncoder->encodePassword($user, $user->getPlainPassword());
     }
 }

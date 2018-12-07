@@ -24,12 +24,7 @@ class RegistrationController extends AbstractController
         // 2) handle the submit (will only happen on POST)
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $password = $userService->encodePassword($user);
-            $user->setPassword($password);
-
-            $userService->persist($user);
-
+            $user = $userService->newUser($user);
             return $this->redirectToRoute('user_registration');
         }
 
