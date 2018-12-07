@@ -45,7 +45,5 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         $entityManager = $this->getEntityManager();
         $entityManager->persist($user);
         $entityManager->flush();
-
     }
-
 }

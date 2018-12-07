@@ -35,11 +35,6 @@ class User implements UserInterface, EquatableInterface
      */
     private $password;
 
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max=4096)
-     */
-    private $plainPassword;
     private $roles = [];
 
     public function __construct()
@@ -88,18 +83,6 @@ class User implements UserInterface, EquatableInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-    public function getPlainPassword(): ?string
-    {
-        return $this->plainPassword;
-    }
-
-    public function setPlainPassword(string $plainPassword): self
-    {
-        $this->plainPassword = $plainPassword;
 
         return $this;
     }
