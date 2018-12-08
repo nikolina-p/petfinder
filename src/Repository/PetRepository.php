@@ -14,15 +14,10 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class PetRepository extends ServiceEntityRepository
 {
+    use BaseRepository;
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Pet::class);
-    }
-
-    public function persist(Pet $pet): void
-    {
-        $entityManager = $this->getEntityManager();;
-        $entityManager->persist($pet);
-        $entityManager->flush();
     }
 }
