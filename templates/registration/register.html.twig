@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        {% block body %}
+            {{ form_start(form) }}
+                {{ form_row(form.username) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.password.first) }}
+                {{ form_row(form.password.second) }}
+                {{ form_row(form.termsAccepted) }}
+                <button type="submit">Register!</button>
+            {{ form_end(form) }}
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
