@@ -15,6 +15,8 @@ use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements UserLoaderInterface
 {
+    use RepositoryTrait;
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, User::class);
@@ -38,12 +40,5 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->setParameter('email', $username)
             ->getQuery()
             ->getOneOrNullResult();
-    }
-
-    public function persist(User $user): void
-    {
-        $entityManager = $this->getEntityManager();
-        $entityManager->persist($user);
-        $entityManager->flush();
     }
 }

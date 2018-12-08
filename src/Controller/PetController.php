@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Pet;
+use App\Service\PetService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,6 +13,13 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class PetController extends AbstractController
 {
+    private $petService;
+
+    public function __construct(PetService $petService)
+    {
+        $this->petService = $petService;
+    }
+
     /**
      * @Route("/new", name="new_pet")
      */
@@ -23,12 +31,7 @@ class PetController extends AbstractController
         // 2) handle the submit (will only happen on POST)
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
-            // save the Pet!
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($pet);
-            $entityManager->flush();
-
+            $this->petService->newPet($pet);
             return $this->redirectToRoute('new_pet');
         }
         return $this->render('pet/pet.html.twig', array(
