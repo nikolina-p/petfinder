@@ -13,10 +13,17 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class PetController extends AbstractController
 {
+    private $petService;
+
+    public function __construct(PetService $petService)
+    {
+        $this->petService = $petService;
+    }
+
     /**
      * @Route("/new", name="new_pet")
      */
-    public function new(Request $request, PetService $petService) : Response
+    public function new(Request $request) : Response
     {
         // creates a pet and creates a form for adding new pet
         $form = $this->createForm(PetForm::class, $pet = new Pet());
@@ -24,7 +31,7 @@ class PetController extends AbstractController
         // 2) handle the submit (will only happen on POST)
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $petService->newPet($pet);
+            $this->petService->newPet($pet);
             return $this->redirectToRoute('new_pet');
         }
         return $this->render('pet/pet.html.twig', array(
