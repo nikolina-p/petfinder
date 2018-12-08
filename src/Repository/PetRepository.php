@@ -18,4 +18,11 @@ class PetRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Pet::class);
     }
+
+    public function persist(Pet $pet): void
+    {
+        $entityManager = $this->getEntityManager();;
+        $entityManager->persist($pet);
+        $entityManager->flush();
+    }
 }
