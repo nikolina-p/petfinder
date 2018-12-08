@@ -1,7 +1,7 @@
 <?php
 namespace App\Repository;
 
-trait BaseRepository
+trait RepositoryTrait
 {
     public function persist(object $entity): void
     {

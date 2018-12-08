@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements UserLoaderInterface
 {
-    use BaseRepository;
+    use RepositoryTrait;
 
     public function __construct(RegistryInterface $registry)
     {

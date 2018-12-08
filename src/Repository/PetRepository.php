@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class PetRepository extends ServiceEntityRepository
 {
-    use BaseRepository;
+    use RepositoryTrait;
 
     public function __construct(RegistryInterface $registry)
     {
