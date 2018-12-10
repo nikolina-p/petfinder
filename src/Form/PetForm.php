@@ -22,8 +22,8 @@ class PetForm extends AbstractType
             ->add('age', NumberType::class, [
                 'label' => 'How old is the pet?',
                 'scale' => 2
-            ]);
-            //->add('photos', FileType::class, ['multiple' => true]);
+            ])
+            ->add('photos', FileType::class, ['multiple' => true]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
