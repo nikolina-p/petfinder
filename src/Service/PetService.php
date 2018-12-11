@@ -20,7 +20,6 @@ class PetService
 
     public function newPet(Pet $pet): void
     {
-        var_dump($pet);
         $this->photoService->uploadPhotos($pet->getPhotos());
         $this->petRepository->persist($pet);
     }

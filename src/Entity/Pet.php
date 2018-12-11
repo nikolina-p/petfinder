@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use App\Entity\Photo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -97,8 +99,19 @@ class Pet
         return $this->photos;
     }
 
-    public function addPhoto(?Photo $photo): self
+    public function addPhoto(object $file): self
     {
+        $photo = "";
+
+        if ($file instanceof UploadedFile) {
+            $photo = new Photo();
+            $photo->setFile($file);
+        } elseif ($file instanceof Photo) {
+           $photo = $file;
+        } else {
+            throw new Exception('addPhoto function accepts only UploadedFile and Photo type. Input was: '.get_class($file));
+        }
+
         if (!$this->photos->contains($photo)) {
             $this->photos[] = $photo;
             $photo->setPet($this);
