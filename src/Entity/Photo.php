@@ -31,6 +31,10 @@ class Photo
 
     /**
      * @var UploadedFile
+     * @Assert\File(
+     *     maxSize = "2M",
+     *     maxSizeMessage = "The file is too large. Max 2M allowed"
+     * )
      */
     private $file;
 
@@ -63,12 +67,7 @@ class Photo
 
         return $this;
     }
-    /**
-     * @Assert\File(
-     *     maxSize = "2M",
-     *     maxSizeMessage = "The file is too large. Max 2M allowed"
-     * )
-     */
+
     public function getFile(): ?UploadedFile
     {
         return $this->file;

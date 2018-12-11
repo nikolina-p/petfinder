@@ -42,6 +42,7 @@ class Pet
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Photo", mappedBy="pet", orphanRemoval=true)
+     * @Assert\Valid(traverse="true")
      */
     private $photos;
 

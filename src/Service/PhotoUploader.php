@@ -2,11 +2,8 @@
 
 namespace App\Service;
 
-use App\Entity\Photo;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
-use Symfony\Component\HttpFoundation\File\Exception\FormSizeFileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PhotoUploader
@@ -20,11 +17,7 @@ class PhotoUploader
 
     public function upload(UploadedFile $file): string
     {
-        try {
-            $fileName = md5(uniqid()).'.'.$file->guessExtension();
-        } catch (FileNotFoundException $e) {
-            throw new FormSizeFileException('File is too large (max allowed 2M)');
-        }
+        $fileName = md5(uniqid()).'.'.$file->guessExtension();
 
         try {
             $file->move($this->getTargetDirectory(), $fileName);
