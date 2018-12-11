@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PhotoRepository")
@@ -62,7 +63,12 @@ class Photo
 
         return $this;
     }
-
+    /**
+     * @Assert\File(
+     *     maxSize = "2M",
+     *     maxSizeMessage = "The file is too large. Max 2M allowed"
+     * )
+     */
     public function getFile(): ?UploadedFile
     {
         return $this->file;
