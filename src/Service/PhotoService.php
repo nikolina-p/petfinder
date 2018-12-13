@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Photo;
+use App\Entity\Pet;
 use App\Service\PhotoUploader;
 use App\Repository\PhotoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -26,6 +27,5 @@ class PhotoService
             $photo->setPhotoName($fileName);
             $this->photoRepository->persist($photo);
         }
-
     }
 }

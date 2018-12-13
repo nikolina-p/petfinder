@@ -38,7 +38,6 @@ class Photo
      */
     private $file;
 
-
     public function getId(): ?int
     {
         return $this->id;
