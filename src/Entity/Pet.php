@@ -100,19 +100,8 @@ class Pet
         return $this->photos;
     }
 
-    public function addPhoto(object $file): self
+    public function addPhoto(Photo $photo): self
     {
-        $photo = "";
-
-        if ($file instanceof UploadedFile) {
-            $photo = new Photo();
-            $photo->setFile($file);
-        } elseif ($file instanceof Photo) {
-           $photo = $file;
-        } else {
-            throw new Exception('addPhoto function accepts only UploadedFile and Photo type. Input was: '.get_class($file));
-        }
-
         if (!$this->photos->contains($photo)) {
             $this->photos[] = $photo;
             $photo->setPet($this);

@@ -20,8 +20,7 @@ class PhotoService
 
     public function uploadPhotos(ArrayCollection $photoFiles): void
     {
-        foreach ($photoFiles as $photo)
-        {
+        foreach ($photoFiles as $photo) {
             $fileName = $this->photoUploader->upload($photo->getFile());
             $photo->setPhotoName($fileName);
             $this->photoRepository->persist($photo);
