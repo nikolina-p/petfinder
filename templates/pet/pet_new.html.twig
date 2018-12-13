@@ -1,20 +1,14 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
+{% extends "base.html.twig" %}
+
+{% block body %}
     <body>
-        {% block body %}
-            {{ form_start(form) }}
-                {{ form_row(form.name) }}
-                {{ form_row(form.description) }}
-                {{ form_row(form.age) }}
-                {{ form_row(form.photos) }}
-                <button type="submit">Register!</button>
-            {{ form_end(form) }}
-        {% endblock %}
-        {% block javascripts %}{% endblock %}
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.age) }}
+    {{ form_row(form.photos) }}
+    <button type="submit">Register!</button>
+    {{ form_end(form) }}
     </body>
-</html>
+{% endblock %}
+{% block javascripts %}{% endblock %}

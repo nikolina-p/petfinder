@@ -1,34 +1,29 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Pet finder{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}
-            <div id = "petTable">
-                <table id = "petTable">
-                    {% for row in pets|batch(3, "") %}
-                        <tr>
-                            {% for pet in row %}
-                                {% if pet != "" %}
-                                    <td>
-                                        {% for photo in pet.photos %}
-                                            <img src="{{ asset("uploads/photos/"~photo.photoName) }}">
-                                        {% endfor %}
-                                        <br>
-                                        {{ "Ime: "~pet.name }}
-                                        <br>
-                                        {{ "Starost: "~pet.age }}
-                                    </td>
-                                {% endif %}
-                            {% endfor %}
-                        </tr>
+{% extends "base.html.twig" %}
+
+{% block body %}
+<body>
+    <div id = "petTable">
+        <table id = "petTable">
+            {% for row in pets|batch(3, "") %}
+                <tr>
+                    {% for pet in row %}
+                        {% if pet != "" %}
+                            <td>
+                                {% for photo in pet.photos %}
+                                    <img src="{{ asset("uploads/photos/"~photo.photoName) }}" style="width:150px; height: auto;">
+                                {% endfor %}
+                                <br>
+                                {{ "Ime: "~pet.name }}
+                                <br>
+                                {{ "Starost: "~pet.age }}
+                            </td>
+                        {% endif %}
                     {% endfor %}
-                </table>
-            </div>
-        {% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
-</html>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+{% endblock %}
+{% block javascripts %}{% endblock %}
+
