@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Photo;
+use App\Entity\Pet;
 use App\Service\PhotoUploader;
 use Doctrine\Common\Collections\ArrayCollection;
 

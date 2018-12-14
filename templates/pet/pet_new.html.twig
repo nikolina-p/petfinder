@@ -3,11 +3,10 @@
 {% block body %}
     <body>
     {{ form_start(form) }}
-    {{ form_row(form.username) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.password.first) }}
-    {{ form_row(form.password.second) }}
-    {{ form_row(form.termsAccepted) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.age) }}
+    {{ form_row(form.photos) }}
     <button type="submit">Register!</button>
     {{ form_end(form) }}
     </body>

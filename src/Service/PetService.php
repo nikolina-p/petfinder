@@ -6,7 +6,6 @@ namespace App\Service;
 use App\Repository\PetRepository;
 use App\Entity\Pet;
 
-
 class PetService
 {
     private $petRepository;
@@ -22,6 +21,11 @@ class PetService
     {
         $this->photoService->uploadPhotos($pet->getPhotos());
         $this->petRepository->persist($pet);
+    }
+
+    public function loadPets(): array
+    {
+        return $this->petRepository->findAll();
     }
 
 }
