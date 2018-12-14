@@ -3,5 +3,4 @@ services:
     config_path: phpcs.xml
     paths:
       - src
-  composernormalize: true
   yamllint: true
