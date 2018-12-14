@@ -13,7 +13,6 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
-
 class RegistrationForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

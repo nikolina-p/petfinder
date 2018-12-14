@@ -12,7 +12,6 @@ use App\Form\PetForm;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-
 class PetController extends AbstractController
 {
     private $petService;
@@ -49,6 +48,5 @@ class PetController extends AbstractController
     {
         $pets = $this->petService->loadPets();
         return $this->render("pet/pet_show_all.html.twig", ['pets' => $pets]);
-
     }
 }

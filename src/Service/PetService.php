@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Service;
 
 use App\Repository\PetRepository;
@@ -27,5 +26,4 @@ class PetService
     {
         return $this->petRepository->findAll();
     }
-
 }
