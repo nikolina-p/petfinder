@@ -10,7 +10,7 @@ class PhotoUploader
 {
     private $targetDirectory;
 
-    public function __construct($targetDirectory)
+    public function __construct(string $targetDirectory)
     {
         $this->targetDirectory = $targetDirectory;
     }
@@ -28,9 +28,8 @@ class PhotoUploader
         return $fileName;
     }
 
-    public function getTargetDirectory()
+    public function getTargetDirectory(): string
     {
         return $this->targetDirectory;
     }
-
 }

@@ -112,12 +112,13 @@ class Pet
 
     public function removePhoto(Photo $photo): self
     {
-        if ($this->photos->contains($photo)) {
-            $this->photos->removeElement($photo);
-            // set the owning side to null (unless already changed)
-            if ($photo->getPet() === $this) {
-                $photo->setPet(null);
-            }
+        if (!$this->photos->contains($photo)) {
+            return $this;
+        }
+        $this->photos->removeElement($photo);
+        // set the owning side to null (unless already changed)
+        if ($photo->getPet() === $this) {
+            $photo->setPet(null);
         }
 
         return $this;

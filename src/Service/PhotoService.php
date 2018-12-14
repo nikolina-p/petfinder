@@ -10,7 +10,7 @@ class PhotoService
 {
     private $photoUploader;
 
-    public function __construct( PhotoUploader $photoUploader)
+    public function __construct(PhotoUploader $photoUploader)
     {
         $this->photoUploader = $photoUploader;
     }
@@ -21,6 +21,5 @@ class PhotoService
             $fileName = $this->photoUploader->upload($photo->getFile());
             $photo->setPhotoName($fileName);
         }
-
     }
 }

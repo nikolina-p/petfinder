@@ -34,11 +34,10 @@ class PhotoTransformer implements DataTransformerInterface
      */
     public function reverseTransform($uploadedFiles): ?ArrayCollection
     {
-        // no uploaded file?
         if (count($uploadedFiles) == 0) {
             throw new TransformationFailedException(sprintf(
                 'Please upload at least one photo of your pet!'
-                ));
+            ));
         }
 
         array_walk($uploadedFiles, function(&$file){
@@ -47,7 +46,5 @@ class PhotoTransformer implements DataTransformerInterface
         });
 
         return new ArrayCollection($uploadedFiles);
-
     }
-
 }
