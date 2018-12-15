@@ -20,9 +20,7 @@ class PhotoTransformer implements DataTransformerInterface
         if (count($photos) == 0) {
             return null;
         }
-        $photos = $photos->unwrap();
-
-        return $photos;
+        return $photos->unwrap();
     }
 
     /**

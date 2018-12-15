@@ -59,7 +59,13 @@ class PetController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->petService->saveChanges();
+            $oldPhotos = $pet->getPhotos()->getSnapshot();
+            $pet->setPhotos($pet->getPhotos()->unwrap());
+            foreach ($oldPhotos as $photo) {
+                $pet->addPhoto($photo);
+            }
+
+            $this->petService->saveChanges($pet);
             return $this->redirectToRoute('show_all');
         }
 

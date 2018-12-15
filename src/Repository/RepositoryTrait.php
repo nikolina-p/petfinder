@@ -12,8 +12,7 @@ trait RepositoryTrait
 
     public function saveChanges(): void
     {
-        $entityManager = $this->getEntityManager();
-        $entityManager->flush();
+        $this->getEntityManager()->flush();
     }
 
 }
