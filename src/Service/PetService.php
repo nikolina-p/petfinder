@@ -31,4 +31,10 @@ class PetService
     {
         return $this->petRepository->find($id);
     }
+
+    public function saveChanges(): void
+    {
+        $this->petRepository->saveChanges();
+
+    }
 }

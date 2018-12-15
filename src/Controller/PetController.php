@@ -52,10 +52,16 @@ class PetController extends AbstractController
     /**
      * @Route("/edit/{id}", name="edit_pet")
      */
-    public function editPet($id)
+    public function editPet($id, Request $request)
     {
         $pet = $this->petService->findById($id);
         $form = $this->createForm(PetForm::class, $pet);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->petService->saveChanges();
+            return $this->redirectToRoute('show_all');
+        }
 
         return $this->render('pet/pet_new.html.twig', array(
             'form' => $form->createView(),

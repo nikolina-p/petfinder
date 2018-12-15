@@ -9,4 +9,11 @@ trait RepositoryTrait
         $entityManager->persist($entity);
         $entityManager->flush();
     }
+
+    public function saveChanges(): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->flush();
+    }
+
 }
