@@ -40,7 +40,6 @@ class PetController extends AbstractController
         ));
     }
 
-
     /**
      * @Route("/all", name="show_all")
      */
@@ -48,5 +47,18 @@ class PetController extends AbstractController
     {
         $pets = $this->petService->loadPets();
         return $this->render("pet/pet_show_all.html.twig", ['pets' => $pets]);
+    }
+
+    /**
+     * @Route("/edit/{id}", name="edit_pet")
+     */
+    public function editPet($id)
+    {
+        $pet = $this->petService->findById($id);
+        $form = $this->createForm(PetForm::class, $pet);
+
+        return $this->render('pet/pet_new.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 }
