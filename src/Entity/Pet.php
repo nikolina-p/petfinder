@@ -41,7 +41,8 @@ class Pet
     private $age;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Photo", mappedBy="pet", orphanRemoval=true, cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Photo", mappedBy="pet",
+     *     orphanRemoval=true, cascade={"persist", "remove"})
      * @Assert\Valid(traverse="true")
      */
     private $photos;

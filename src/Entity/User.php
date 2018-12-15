@@ -40,7 +40,6 @@ class User implements UserInterface, EquatableInterface
     public function __construct()
     {
         $this->roles[] = 'ROLE_USER';
-
     }
     public function getId(): ?int
     {

@@ -9,7 +9,6 @@ use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-
 class UserProvider extends EntityUserProvider implements UserProviderInterface
 {
     private $userRepository;

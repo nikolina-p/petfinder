@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Pet;
+use App\Entity\Photo;
 use App\Service\PetService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,8 +35,18 @@ class PetController extends AbstractController
             $this->petService->newPet($pet);
             return $this->redirectToRoute('new_pet');
         }
-        return $this->render('pet/pet.html.twig', array(
+        return $this->render('pet/pet_new.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+
+
+    /**
+     * @Route("/all", name="show_all")
+     */
+    public function showAll()
+    {
+        $pets = $this->petService->loadPets();
+        return $this->render("pet/pet_show_all.html.twig", ['pets' => $pets]);
     }
 }

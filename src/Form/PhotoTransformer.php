@@ -21,7 +21,7 @@ class PhotoTransformer implements DataTransformerInterface
             return null;
         }
 
-        array_walk($photos, function(&$photo){
+        array_walk($photos, function (&$photo) {
             $photo = $photo->getFile();
         });
 
@@ -40,7 +40,7 @@ class PhotoTransformer implements DataTransformerInterface
             ));
         }
 
-        array_walk($uploadedFiles, function(&$file){
+        array_walk($uploadedFiles, function (&$file) {
             $photo = new Photo();
             $file = $photo->setFile($file);
         });
