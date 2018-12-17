@@ -26,4 +26,16 @@ class PetService
     {
         return $this->petRepository->findAll();
     }
+
+    public function findById(int $id): Pet
+    {
+        return $this->petRepository->find($id);
+    }
+
+    public function saveChanges(Pet $pet): void
+    {
+        $this->photoService->uploadPhotos($pet->getPhotos());
+        $this->petRepository->saveChanges();
+
+    }
 }
