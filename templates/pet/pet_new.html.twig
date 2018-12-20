@@ -6,9 +6,16 @@
     {{ form_row(form.name) }}
     {{ form_row(form.description) }}
     {{ form_row(form.age) }}
+    {% for photo in pet.photos %}
+        <img src="{{ asset("uploads/photos/"~photo.photoName) }}" style="width:150px; height: auto;">
+        <button type="button" id="{{ photo.photoName }}" style="width: 15px;height: 15px;background-color: red"
+                onclick="deletePhoto('{{ photo.photoName }}')">X</button>
+    {% endfor %}
     {{ form_row(form.photos) }}
     <button type="submit">Save</button>
     {{ form_end(form) }}
+    {% block javascripts %}
+        <script src="{{ asset('js/petfinder.js') }}"></script>
+    {% endblock %}
     </body>
 {% endblock %}
-{% block javascripts %}{% endblock %}

@@ -69,8 +69,16 @@ class PetController extends AbstractController
             return $this->redirectToRoute('show_all');
         }
 
-        return $this->render('pet/pet_new.html.twig', array(
-            'form' => $form->createView(),
-        ));
+        return $this->render('pet/pet_new.html.twig', [
+            'form' => $form->createView(), 'pet' => $pet
+        ]);
+    }
+
+    /**
+     * @Route("/deletePhoto/{photoName}", name="delete_photo")
+     */
+    public function deletePhoto(string $photoName)
+    {
+        return $this->petService->deletePhoto($photoName);
     }
 }

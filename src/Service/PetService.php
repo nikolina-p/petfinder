@@ -36,6 +36,10 @@ class PetService
     {
         $this->photoService->uploadPhotos($pet->getPhotos());
         $this->petRepository->saveChanges();
+    }
 
+    public function deletePhoto(string $photoName): bool
+    {
+        return $this->photoService->deletePhoto($photoName);
     }
 }

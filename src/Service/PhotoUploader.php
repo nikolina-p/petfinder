@@ -3,16 +3,22 @@
 namespace App\Service;
 
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 class PhotoUploader
 {
     private $targetDirectory;
 
-    public function __construct(string $targetDirectory)
+    private $fileSystem;
+
+    public function __construct(string $targetDirectory, Filesystem $fileSystem)
     {
         $this->targetDirectory = $targetDirectory;
+        $this->fileSystem = $fileSystem;
     }
 
     public function upload(UploadedFile $file): string
@@ -31,5 +37,15 @@ class PhotoUploader
     public function getTargetDirectory(): string
     {
         return $this->targetDirectory;
+    }
+
+    public function deleteFile(string $fileName): bool
+    {
+        try {
+            $this->fileSystem->remove(['symlink', $this->getTargetDirectory(), $fileName]);
+            return true;
+        } catch (IOExceptionInterface $exception) {
+            throw new IOException("Error: File can not be deleted.");
+        }
     }
 }
