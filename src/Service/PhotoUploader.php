@@ -39,13 +39,12 @@ class PhotoUploader
         return $this->targetDirectory;
     }
 
-    public function deleteFile(string $fileName): bool
+    public function deleteFile(string $fileName): void
     {
         try {
             $this->fileSystem->remove([$this->getTargetDirectory()."/".$fileName]);
-            return true;
         } catch (IOExceptionInterface $exception) {
-            throw new IOException("Error: File can not be deleted.");
+            throw new Exception("Error: File can not be deleted.");
         }
     }
 }

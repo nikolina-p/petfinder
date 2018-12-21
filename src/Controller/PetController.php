@@ -37,7 +37,7 @@ class PetController extends AbstractController
             return $this->redirectToRoute('new_pet');
         }
         return $this->render('pet/pet_new.html.twig', array(
-            'form' => $form->createView(),
+            'form' => $form->createView(), 'pet' => $pet
         ));
     }
 
@@ -76,13 +76,14 @@ class PetController extends AbstractController
     }
 
     /**
-     * @Route("/deletePhoto/{photoName}", name="delete_photo")
+     * @Route("/photo/delete/{photoName}", name="delete_photo")
      */
     public function deletePhoto(string $photoName)
     {
-        if ($this->petService->deletePhoto($photoName)) {
+        try {
+            $this->petService->deletePhoto($photoName);
             return new Response(null, 204);
-        } else {
+        } catch (Exception $e) {
             return new Response(null, 400);
         }
     }

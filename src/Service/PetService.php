@@ -38,8 +38,8 @@ class PetService
         $this->petRepository->saveChanges();
     }
 
-    public function deletePhoto(string $photoName): bool
+    public function deletePhoto(string $photoName): void
     {
-        return $this->photoService->deletePhoto($photoName);
+        $this->photoService->deletePhoto($photoName);
     }
 }

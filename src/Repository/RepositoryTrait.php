@@ -2,6 +2,7 @@
 namespace App\Repository;
 
 use Doctrine\ORM\ORMException;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 trait RepositoryTrait
 {
@@ -17,15 +18,14 @@ trait RepositoryTrait
         $this->getEntityManager()->flush();
     }
 
-    public function delete(object $entity): bool
+    public function delete(object $entity): void
     {
         try {
             $entityManager = $this->getEntityManager();
             $entityManager->remove($entity);
             $entityManager->flush();
-            return true;
-        } catch (ORMException $e) {
-            throw new ORMException("Error: Entity could not be deleted.");
+        } catch (Exception $e) {
+            throw new Exception("Error: Entity could not be deleted.");
         }
     }
 }

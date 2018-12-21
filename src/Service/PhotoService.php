@@ -30,12 +30,10 @@ class PhotoService
         }
     }
 
-    public function deletePhoto(string $photoName): bool
+    public function deletePhoto(string $photoName): void
     {
-        $photo = $this->photoRepository->findBy(['photoName' => $photoName]);
-        $photo = $photo[0];
-
-        return $this->photoUploader->deleteFile($photo->getPhotoName()) &&
+        $photo = $this->photoRepository->findOneBy(['photoName' => $photoName]);
+        $this->photoUploader->deleteFile($photo->getPhotoName());
         $this->photoRepository->delete($photo);
     }
 }

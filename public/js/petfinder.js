@@ -1,5 +1,5 @@
 function deletePhoto(photoName) {
-    let response = ajaxCall('/deletePhoto/'+photoName);
+    let response = ajaxCall('/photo/delete/'+photoName);
     if(response.status == 204) {
         document.getElementById(photoName).style.display = "none";
     }
