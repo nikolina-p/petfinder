@@ -7,9 +7,12 @@
     {{ form_row(form.description) }}
     {{ form_row(form.age) }}
     {% for photo in pet.photos %}
-        <img src="{{ asset("uploads/photos/"~photo.photoName) }}" style="width:150px; height: auto;">
-        <button type="button" id="{{ photo.photoName }}" style="width: 15px;height: 15px;background-color: red"
+        <div id="{{ photo.photoName }}">
+            <img src="{{ asset("uploads/photos/"~photo.photoName) }}"
+              style="width:150px; height: auto;">
+            <button type="button" style="width: 15px;height: 15px;background-color: red"
                 onclick="deletePhoto('{{ photo.photoName }}')">X</button>
+        </div>
     {% endfor %}
     {{ form_row(form.photos) }}
     <button type="submit">Save</button>

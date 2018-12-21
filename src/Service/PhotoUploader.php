@@ -42,7 +42,7 @@ class PhotoUploader
     public function deleteFile(string $fileName): bool
     {
         try {
-            $this->fileSystem->remove(['symlink', $this->getTargetDirectory(), $fileName]);
+            $this->fileSystem->remove([$this->getTargetDirectory()."/".$fileName]);
             return true;
         } catch (IOExceptionInterface $exception) {
             throw new IOException("Error: File can not be deleted.");

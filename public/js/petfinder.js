@@ -1,7 +1,7 @@
 function deletePhoto(photoName) {
     let response = ajaxCall('/deletePhoto/'+photoName);
-    if(response) {
-
+    if(response.status == 204) {
+        document.getElementById(photoName).style.display = "none";
     }
 
 }
@@ -18,14 +18,12 @@ function ajaxCall(route){
     }
     try{
         ajax.onreadystatechange = function(){
-            if(ajax.readyState == 4 && ajax.status == 200){
-                response = ajax.responseText;
-            }
+            return ajax;
         }
     }catch(e){
         return false;
     }
     ajax.open("POST", route, false);
     ajax.send();
-    return response;
+    return ajax;
 }

@@ -38,9 +38,4 @@ class PhotoService
         return $this->photoUploader->deleteFile($photo->getPhotoName()) &&
         $this->photoRepository->delete($photo);
     }
-
-    public function loadByPhotoName(string $photoName): Photo
-    {
-        return $this->photoRepository->loadByPhotoName($photoName);
-    }
 }

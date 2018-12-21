@@ -6,6 +6,7 @@ use App\Entity\Pet;
 use App\Entity\Photo;
 use App\Service\PetService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\PetForm;
@@ -79,6 +80,11 @@ class PetController extends AbstractController
      */
     public function deletePhoto(string $photoName)
     {
-        return $this->petService->deletePhoto($photoName);
+        if ($this->petService->deletePhoto($photoName)) {
+            return new Response(null, 204);
+        } else {
+            return new Response(null, 400);
+        }
     }
 }
+
