@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Pet;
 use App\Entity\Photo;
 use App\Service\PetService;
+use App\Exception\EntityNotDeletedException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -83,7 +84,7 @@ class PetController extends AbstractController
         try {
             $this->petService->deletePhoto($photoName);
             return new Response(null, 204);
-        } catch (Exception $e) {
+        } catch (EntityNotDeletedException $e) {
             return new Response(null, 400);
         }
     }

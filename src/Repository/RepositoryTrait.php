@@ -1,6 +1,7 @@
 <?php
 namespace App\Repository;
 
+use App\Exception\EntityNotDeletedException;
 use Doctrine\ORM\ORMException;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
@@ -24,8 +25,8 @@ trait RepositoryTrait
             $entityManager = $this->getEntityManager();
             $entityManager->remove($entity);
             $entityManager->flush();
-        } catch (Exception $e) {
-            throw new Exception("Error: Entity could not be deleted.");
+        } catch (ORMException $e) {
+            throw new EntityNotDeletedException("Error: Entity could not be deleted.");
         }
     }
 }
