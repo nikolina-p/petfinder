@@ -16,6 +16,9 @@
     {% endfor %}
     {{ form_row(form.photos) }}
     <button type="submit">Save</button>
+    {% if pet.id is not null %}
+    <button type="button" onclick="deletePet('{{ pet.id }}')">Delete pet</button>
+    {% endif %}
     {{ form_end(form) }}
     {% block javascripts %}
         <script src="{{ asset('js/petfinder.js') }}"></script>
