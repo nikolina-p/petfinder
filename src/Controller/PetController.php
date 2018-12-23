@@ -84,8 +84,8 @@ class PetController extends AbstractController
         try {
             $this->petService->deletePhoto($photoName);
             return new Response(null, 204);
-        } catch (EntityNotDeletedException $e) {
-            return new Response(null, 400);
+        } catch (EntityNotDeletedException $exception) {
+            return new Response($exception->getMessage(), 400);
         }
     }
 }

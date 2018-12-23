@@ -2,9 +2,7 @@
 
 namespace App\Exception;
 
-use Doctrine\ORM\ORMException;
-
-class EntityNotDeletedException extends ORMException
+class EntityNotDeletedException extends \Exception
 {
     public function __construct()
     {
