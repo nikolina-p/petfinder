@@ -42,4 +42,11 @@ class PetService
     {
         $this->photoService->deletePhoto($photoName);
     }
+
+    public function deletePet(Pet $pet) {
+        foreach ($pet->getPhotos() as $photo) {
+            $this->deletePhoto($photo->getPhotoName());
+        }
+        $this->petRepository->delete($pet);
+    }
 }
