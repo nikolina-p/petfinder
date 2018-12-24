@@ -5,14 +5,15 @@ namespace App\Controller;
 use App\Entity\Pet;
 use App\Entity\Photo;
 use App\Service\PetService;
+use App\Form\PetForm;
 use App\Exception\EntityNotDeletedException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Form\PetForm;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class PetController extends AbstractController
 {
@@ -25,6 +26,7 @@ class PetController extends AbstractController
 
     /**
      * @Route("/new", name="new_pet")
+     * @IsGranted("ROLE_USER")
      */
     public function new(Request $request) : Response
     {
@@ -53,6 +55,7 @@ class PetController extends AbstractController
 
     /**
      * @Route("/edit/{id}", name="edit_pet")
+     * @IsGranted("ROLE_USER")
      */
     public function editPet($id, Request $request)
     {
@@ -78,6 +81,7 @@ class PetController extends AbstractController
 
     /**
      * @Route("/photo/delete/{photoName}", name="delete_photo")
+     * @IsGranted("ROLE_USER")
      */
     public function deletePhoto(string $photoName)
     {
@@ -91,8 +95,10 @@ class PetController extends AbstractController
 
     /**
      * @Route("/pet/delete/{petId}", name="delete_pet")
+     * @IsGranted("ROLE_USER")
      */
-    public function deletePet(string $petId) {
+    public function deletePet(string $petId)
+    {
         try {
             $pet = $this->petService->findById($petId);
             $this->petService->deletePet($pet);
