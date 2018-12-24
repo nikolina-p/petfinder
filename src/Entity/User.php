@@ -35,6 +35,9 @@ class User implements UserInterface, EquatableInterface
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="json")
+     */
     private $roles = [];
 
     public function __construct()
