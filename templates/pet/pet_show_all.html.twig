@@ -3,12 +3,12 @@
 {% block body %}
 <body>
     <div id = "petTable">
-        <table id = "petTable">
+        <table id = "petTable" style="border: solid #1C440C">
             {% for row in pets|batch(3, "") %}
                 <tr>
                     {% for pet in row %}
                         {% if pet != "" %}
-                            <td>
+                            <td style="border: solid #1C440C">
                                 {% for photo in pet.photos %}
                                     <img src="{{ asset("uploads/photos/"~photo.photoName) }}" style="width:150px; height: auto;">
                                 {% endfor %}
@@ -16,6 +16,7 @@
                                 {{ "Ime: "~pet.name }}
                                 <br>
                                 {{ "Starost: "~pet.age }}
+                                <a href="/edit/{{ pet.id }}" style="font-size: .7em">edit</a>
                             </td>
                         {% endif %}
                     {% endfor %}
