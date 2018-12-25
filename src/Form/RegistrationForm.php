@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -25,6 +26,15 @@ class RegistrationForm extends AbstractType
                 'first_options' => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password']
             ])
+            ->add('roles', ChoiceType::class, [
+                    'choices' => [
+                        'USER' => 'ROLE_USER',
+                        'ADMIN' => 'ROLE_ADMIN'
+                    ],
+                    'expanded' =>true,
+                    'multiple' => false
+                ]
+            )
             ->add('termsAccepted', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => new IsTrue()

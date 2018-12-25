@@ -40,10 +40,11 @@ class User implements UserInterface, EquatableInterface
      */
     private $roles = [];
 
-    public function __construct()
+    /**public function __construct()
     {
         $this->roles[] = 'ROLE_USER';
-    }
+    }*/
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,9 +90,14 @@ class User implements UserInterface, EquatableInterface
         return $this;
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
         return $this->roles;
+    }
+
+    public function setRoles(string $role='ROLE_USER'): self
+    {
+        $this->roles[] = $role;
     }
 
     public function eraseCredentials()
