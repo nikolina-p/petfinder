@@ -23,7 +23,7 @@ class UserService
     {
         $user->setPassword($this->encodePassword($user));
         if (empty($user->getRoles())) {
-            $user->setRoles();
+            $user->setRoles(['ROLE_USER']);
         }
         $this->persist($user);
     }
