@@ -22,6 +22,9 @@ class UserService
     public function newUser(User $user): void
     {
         $user->setPassword($this->encodePassword($user));
+        if(empty($user->getRoles())) {
+            $user->setRoles('ROLE_USER');
+        }
         $this->persist($user);
     }
     public function persist(User $user): void
