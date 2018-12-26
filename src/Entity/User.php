@@ -38,7 +38,7 @@ class User implements UserInterface, EquatableInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private $roles = ['ROLE_USER'];
 
     public function getId(): ?int
     {
@@ -90,9 +90,21 @@ class User implements UserInterface, EquatableInterface
         return $this->roles;
     }
 
-    public function setRoles(array $role = ['ROLE_USER']): self
+    public function setRoles(array $role): self
     {
         $this->roles = array_merge($this->roles, $role);
+        return $this;
+    }
+
+    public function addRole(string $role): self
+    {
+        if (!$role) {
+            return $this;
+        }
+        $role = strtoupper($role);
+        if (!in_array($role, $this->roles, true)) {
+            $this->roles[] = $role;
+        }
         return $this;
     }
 
