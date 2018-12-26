@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class PetController extends AbstractController
 {
@@ -26,7 +26,7 @@ class PetController extends AbstractController
 
     /**
      * @Route("/new", name="new_pet")
-     * @IsGranted("ROLE_USER")
+     * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
      */
     public function new(Request $request) : Response
     {
@@ -55,7 +55,7 @@ class PetController extends AbstractController
 
     /**
      * @Route("/edit/{id}", name="edit_pet")
-     * @IsGranted("ROLE_USER")
+     * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
      */
     public function editPet($id, Request $request)
     {
@@ -81,7 +81,7 @@ class PetController extends AbstractController
 
     /**
      * @Route("/photo/delete/{photoName}", name="delete_photo")
-     * @IsGranted("ROLE_USER")
+     * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
      */
     public function deletePhoto(string $photoName)
     {
@@ -95,7 +95,7 @@ class PetController extends AbstractController
 
     /**
      * @Route("/pet/delete/{petId}", name="delete_pet")
-     * @IsGranted("ROLE_USER")
+     * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
      */
     public function deletePet(string $petId)
     {
