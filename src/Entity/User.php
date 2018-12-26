@@ -38,12 +38,8 @@ class User implements UserInterface, EquatableInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private $roles = ['ROLE_USER'];
 
-    public function __construct()
-    {
-        $this->roles[] = 'ROLE_USER';
-    }
     public function getId(): ?int
     {
         return $this->id;
@@ -89,9 +85,27 @@ class User implements UserInterface, EquatableInterface
         return $this;
     }
 
-    public function getRoles()
+    public function getRoles(): ?array
     {
         return $this->roles;
+    }
+
+    public function setRoles(array $role): self
+    {
+        $this->roles = array_merge($this->roles, $role);
+        return $this;
+    }
+
+    public function addRole(string $role): self
+    {
+        if (!$role) {
+            return $this;
+        }
+        $role = strtoupper($role);
+        if (!in_array($role, $this->roles, true)) {
+            $this->roles[] = $role;
+        }
+        return $this;
     }
 
     public function eraseCredentials()

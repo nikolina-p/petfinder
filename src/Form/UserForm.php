@@ -11,10 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
-class RegistrationForm extends AbstractType
+class UserForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -26,10 +24,14 @@ class RegistrationForm extends AbstractType
                 'first_options' => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password']
             ])
-            ->add('termsAccepted', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => new IsTrue()
-            ]);
+            ->add('roles', ChoiceType::class, [
+                    'choices' => [
+                        'ADMIN' => 'ROLE_ADMIN'
+                    ],
+                    'multiple' => true,
+                    'expanded' => true
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)
