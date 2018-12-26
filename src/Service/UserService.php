@@ -36,4 +36,9 @@ class UserService
     {
         return $this->passwordEncoder->encodePassword($user, $user->getPassword());
     }
+
+    public function getUsers(): array
+    {
+        return $this->userRepository->findAll();
+    }
 }

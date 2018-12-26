@@ -13,17 +13,24 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class UserController extends AbstractController
 {
+    private $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     /**
      * @Route("/create/user", name="user_create")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function createUser(Request $request, UserService $userService): Response
+    public function createUser(Request $request): Response
     {
         $form = $this->createForm(UserForm::class, $user = new User());
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $userService->newUser($user);
+            $this->userService->newUser($user);
             return $this->redirectToRoute('show_all');
         }
 
@@ -31,5 +38,16 @@ class UserController extends AbstractController
             'user/user.html.twig',
             ['form' => $form->createView()]
         );
+    }
+
+    /**
+     * @Route("/user/all", name="user_show_all")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function showAll()
+    {
+        return $this->render("user/user_show_all.html.twig", [
+            'users' => $this->userService->getUsers()
+        ]);
     }
 }
