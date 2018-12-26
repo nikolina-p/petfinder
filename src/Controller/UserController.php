@@ -32,5 +32,4 @@ class UserController extends AbstractController
             ['form' => $form->createView()]
         );
     }
-
 }

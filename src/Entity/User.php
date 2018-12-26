@@ -90,7 +90,7 @@ class User implements UserInterface, EquatableInterface
         return $this->roles;
     }
 
-    public function setRoles(array $role=['ROLE_USER']): self
+    public function setRoles(array $role = ['ROLE_USER']): self
     {
         $this->roles = array_merge($this->roles, $role);
         return $this;
