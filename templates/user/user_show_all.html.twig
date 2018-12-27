@@ -2,6 +2,13 @@
 
 {% block body %}
 <body>
+    <div>
+        <p>
+            {% if parameters.message is defined %}
+                {{ parameters.message }}
+            {% endif %}
+        </p>
+    </div>
     <div id = "userTable">
         <table id = "userTable" style="border: solid #1C440C">
             {% for row in users|batch(3, "") %}
@@ -15,6 +22,7 @@
                                 {{ "Email: "~user.email }}
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <a href="/user/edit/{{ user.id }}" style="font-size: .7em">edit</a>
+                                    <a href="/user/delete/{{ user.id }}" style="font-size: .7em">delete</a>
                                 {% endif %}
                             </td>
                         {% endif %}
