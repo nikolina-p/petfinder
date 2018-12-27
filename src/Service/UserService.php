@@ -49,4 +49,9 @@ class UserService
         $user->setPassword($this->encodePassword($user));
         $this->userRepository->saveChanges();
     }
+
+    public function deleteUser(User $user): void
+    {
+        $this->userRepository->delete($user);
+    }
 }

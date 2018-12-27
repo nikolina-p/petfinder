@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Exception\EntityNotDeletedException;
 use App\Form\UserForm;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -69,5 +70,23 @@ class UserController extends AbstractController
         return $this->render('user/user.html.twig', [
             'form' => $form->createView(), 'user' => $user
         ]);
+    }
+
+    /**
+     * @Route("/user/delete/{id}", name="delete_user")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function deleteUser(int $id)
+    {
+        try {
+            $user = $this->userService->findById($id);
+            $this->userService->deleteUser($user);
+        } catch (EntityNotDeletedException $exception) {
+            $this->addFlash(
+                'error',
+                $exception->getMessage()
+            );
+        }
+        return $this->redirectToRoute('user_show_all');
     }
 }
