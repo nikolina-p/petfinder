@@ -45,10 +45,10 @@ class UserController extends AbstractController
      * @Route("/user/all", name="user_show_all")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function showAll(array $parameters = [])
+    public function showAll()
     {
         return $this->render("user/user_show_all.html.twig", [
-            'users' => $this->userService->getUsers(), 'parameters' => $parameters
+            'users' => $this->userService->getUsers()
         ]);
     }
 
@@ -81,9 +81,12 @@ class UserController extends AbstractController
         try {
             $user = $this->userService->findById($id);
             $this->userService->deleteUser($user);
-            return $this->redirectToRoute('user_show_all');
         } catch (EntityNotDeletedException $exception) {
-            return $this->showAll(['message' => $exception->getMessage()]);
+            $this->addFlash(
+                'error',
+                $exception->getMessage()
+            );
         }
+        return $this->redirectToRoute('user_show_all');
     }
 }

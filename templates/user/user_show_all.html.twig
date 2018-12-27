@@ -2,13 +2,13 @@
 
 {% block body %}
 <body>
-    <div>
-        <p>
-            {% if parameters.message is defined %}
-                {{ parameters.message }}
-            {% endif %}
-        </p>
-    </div>
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="flash-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
     <div id = "userTable">
         <table id = "userTable" style="border: solid #1C440C">
             {% for row in users|batch(3, "") %}
