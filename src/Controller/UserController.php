@@ -50,4 +50,24 @@ class UserController extends AbstractController
             'users' => $this->userService->getUsers()
         ]);
     }
+
+    /**
+     * @Route("/user/edit/{id}", name="edit_user")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function editUser($id, Request $request)
+    {
+        $user = $this->userService->findById($id);
+        $form = $this->createForm(UserForm::class, $user);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->userService->saveChanges($user);
+            return $this->redirectToRoute('user_show_all');
+        }
+
+        return $this->render('user/user.html.twig', [
+            'form' => $form->createView(), 'user' => $user
+        ]);
+    }
 }

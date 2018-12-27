@@ -14,7 +14,7 @@
                                 <br>
                                 {{ "Email: "~user.email }}
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <a href="/edit/{{ user.id }}" style="font-size: .7em">edit</a>
+                                    <a href="/user/edit/{{ user.id }}" style="font-size: .7em">edit</a>
                                 {% endif %}
                             </td>
                         {% endif %}

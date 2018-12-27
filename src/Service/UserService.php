@@ -38,4 +38,15 @@ class UserService
     {
         return $this->userRepository->findAll();
     }
+
+    public function findById(int $id): User
+    {
+        return $this->userRepository->findOneById($id);
+    }
+
+    public function saveChanges(User $user): void
+    {
+        $user->setPassword($this->encodePassword($user));
+        $this->userRepository->saveChanges();
+    }
 }
