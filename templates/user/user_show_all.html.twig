@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<body>
+    <div id = "userTable">
+        <table id = "userTable" style="border: solid #1C440C">
+            {% for row in users|batch(3, "") %}
+                <tr>
+                    {% for user in row %}
+                        {% if user != "" %}
+                            <td style="border: solid #1C440C">
+                                <br>
+                                {{ "Name: "~user.username }}
+                                <br>
+                                {{ "Email: "~user.email }}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="/edit/{{ user.id }}" style="font-size: .7em">edit</a>
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+{% endblock %}
+{% block javascripts %}{% endblock %}
+
