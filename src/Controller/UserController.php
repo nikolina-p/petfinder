@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class UserController extends AbstractController
 {
@@ -54,7 +55,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/user/edit/{id}", name="edit_user")
-     * @IsGranted("ROLE_ADMIN")
+     * @Security("is_granted('ROLE_ADMIN') or user.getId()==id")
      */
     public function editUser($id, Request $request)
     {
@@ -64,7 +65,9 @@ class UserController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userService->saveChanges($user);
-            return $this->redirectToRoute('user_show_all');
+            return $this->redirectToRoute('edit_user', [
+                'id' => $id
+            ]);
         }
 
         return $this->render('user/user.html.twig', [
@@ -74,7 +77,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/user/delete/{id}", name="delete_user")
-     * @IsGranted("ROLE_ADMIN")
+     * @Security("is_granted('ROLE_ADMIN') or user.getId()==id")
      */
     public function deleteUser(int $id)
     {
