@@ -1,7 +1,12 @@
 {% extends "base.html.twig" %}
 
+{% block sidebar %}
+    {% if  is_granted('ROLE_USER')%}
+        {% include 'sidebar.html.twig' %}
+    {% endif %}
+{% endblock %}
+
 {% block body %}
-<body>
     <div id = "petTable">
         <table id = "petTable" style="border: solid #1C440C">
             {% for row in pets|batch(3, "") %}
@@ -26,7 +31,5 @@
             {% endfor %}
         </table>
     </div>
-</body>
 {% endblock %}
-{% block javascripts %}{% endblock %}
 

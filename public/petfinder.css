@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+}
+div.header {
+    height: 150px;
+    background-color: #e4fd8a;
+}
+img.header {
+    height: inherit;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+div#navigation {
+    height: 30px;
+    background-color: #d5dc19;
+}
+#navigation > * {
+    float: right;
+}
+div.body {
+    margin: auto;
+    width: 85%;
+    float: right;
+}
+table#petTable {
+    margin:auto;
+    width: 100%;
+}
+p {
+    margin: 0;
+}
+#sidebar {
+    width: 15%;
+    float: left;
+}
+* {
+    box-sizing: border-box;
+}

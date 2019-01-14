@@ -1,5 +1,11 @@
 {% extends "base.html.twig" %}
 
+{% block sidebar %}
+    {% if  is_granted('ROLE_USER')%}
+        {% include 'sidebar.html.twig' %}
+    {% endif %}
+{% endblock %}
+
 {% block body %}
     <body>
     {{ form_start(form) }}
@@ -20,8 +26,5 @@
     <button type="button" onclick="deletePet('{{ pet.id }}')">Delete pet</button>
     {% endif %}
     {{ form_end(form) }}
-    {% block javascripts %}
-        <script src="{{ asset('js/petfinder.js') }}"></script>
-    {% endblock %}
     </body>
 {% endblock %}
