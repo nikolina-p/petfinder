@@ -45,9 +45,9 @@ class PetController extends AbstractController
     }
 
     /**
-     * @Route("/all", name="show_all")
+     * @Route("/", name="index")
      */
-    public function showAll()
+    public function index()
     {
         $pets = $this->petService->loadPets();
         return $this->render("pet/pet_show_all.html.twig", ['pets' => $pets]);
@@ -71,7 +71,7 @@ class PetController extends AbstractController
             }
 
             $this->petService->saveChanges($pet);
-            return $this->redirectToRoute('show_all');
+            return $this->redirectToRoute('index');
         }
 
         return $this->render('pet/pet_new.html.twig', [

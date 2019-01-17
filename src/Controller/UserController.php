@@ -33,7 +33,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userService->newUser($user);
-            return $this->redirectToRoute('show_all');
+            return $this->redirectToRoute('index');
         }
 
         return $this->render(

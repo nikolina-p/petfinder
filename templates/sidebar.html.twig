@@ -1,8 +1,7 @@
 <span id="sidebar">
     {% block sidebar %}
         {% if is_granted('ROLE_USER') %}
-            <span><a href="{{ path('show_all') }}">All pets</a></span><br>
-            <span><a href="{{ path('show_all') }}">My pets</a></span><br>
+            <span><a href="{{ path('index') }}">All pets</a></span><br>
             <span><a href="{{ path('new_pet') }}">New pet</a></span><br>
             <span><a href="{{ path('edit_user', {'id':app.user.id}) }}">My profile</a></span><br>
         {% endif %}
