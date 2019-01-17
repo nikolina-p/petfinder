@@ -1,5 +1,9 @@
 {% extends "base.html.twig" %}
 
+{% block navigation %}
+    <span><a href="/login">login</a></span>
+{% endblock %}
+
 {% block body %}
     <body>
     {{ form_start(form) }}
@@ -12,4 +16,3 @@
     {{ form_end(form) }}
     </body>
 {% endblock %}
-{% block javascripts %}{% endblock %}

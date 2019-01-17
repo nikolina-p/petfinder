@@ -4,10 +4,39 @@
         <meta charset="UTF-8">
         <title>{% block title %}Pet finder{% endblock %}</title>
         <link rel="icon" href="{{ asset("paw_favicon.png") }}" type="image/x-icon"/>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link href="{{ asset('petfinder.css') }}" rel="stylesheet" />
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <div class="header">
+            {% block header %}
+                <img class="header" src="{{ asset("photos/header.png") }}">
+            {% endblock %}
+        </div>
+        <div id="navigation">
+            {% block navigation %}
+                {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
+                    <span><a href="/all">logout</a></span>
+                    <span><p>HI, {{ app.user.username }}!</p></span>
+                {% else %}
+                    <span><a href="/register">register</a></span>
+                    <span>/</span>
+                    <span><a href="/login">login</a></span>
+                {% endif %}
+            {% endblock %}
+        </div>
+        <div id="page">
+            {% block sidebar %}{% endblock %}
+            <div class="body">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+        <div id="footer">
+            {% block footer %}{% endblock %}
+        </div>
+        {% block javascripts %}
+            <script src="{{ asset('js/petfinder.js') }}"></script>
+        {% endblock %}
     </body>
 </html>
