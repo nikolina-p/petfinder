@@ -1,13 +1,14 @@
 <span id="sidebar">
     {% block sidebar %}
         {% if is_granted('ROLE_USER') %}
-            <span><a href="/all">All pets</a></span><br>
-            <span><a href="/all">My pets</a></span><br>
-            <span><a href="/user/edit/{{ app.user.id }}">My profile</a></span><br>
+            <span><a href="{{ path('show_all') }}">All pets</a></span><br>
+            <span><a href="{{ path('show_all') }}">My pets</a></span><br>
+            <span><a href="{{ path('new_pet') }}">New pet</a></span><br>
+            <span><a href="{{ path('edit_user', {'id':app.user.id}) }}">My profile</a></span><br>
         {% endif %}
         {% if is_granted('ROLE_ADMIN') %}
-            <span><a href="/user/all">Manage users</a></span><br>
-            <span><a href="/create/user">New user</a></span><br>
+            <span><a href="{{ path('user_show_all') }}">Manage users</a></span><br>
+            <span><a href="{{ path('user_create') }}">New user</a></span><br>
         {% endif %}
     {% endblock %}
 </span>
