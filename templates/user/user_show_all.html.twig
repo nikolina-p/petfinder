@@ -1,11 +1,5 @@
 {% extends "base.html.twig" %}
 
-{% block sidebar %}
-    {% if  is_granted('ROLE_USER')%}
-        {% include 'sidebar.html.twig' %}
-    {% endif %}
-{% endblock %}
-
 {% block body %}
 <body>
 {% for label, messages in app.flashes %}

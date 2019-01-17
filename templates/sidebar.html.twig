@@ -3,6 +3,7 @@
         {% if is_granted('ROLE_USER') %}
             <span><a href="/all">All pets</a></span><br>
             <span><a href="/all">My pets</a></span><br>
+            <span><a href="/new">New pet</a></span><br>
             <span><a href="/user/edit/{{ app.user.id }}">My profile</a></span><br>
         {% endif %}
         {% if is_granted('ROLE_ADMIN') %}

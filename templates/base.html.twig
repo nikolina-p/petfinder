@@ -17,7 +17,7 @@
         <div id="navigation">
             {% block navigation %}
                 {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
-                    <span><a href="/all">logout</a></span>
+                    <span><a href="/logout">logout</a></span>
                     <span><p>HI, {{ app.user.username }}!</p></span>
                 {% else %}
                     <span><a href="/register">register</a></span>
@@ -27,7 +27,11 @@
             {% endblock %}
         </div>
         <div id="page">
-            {% block sidebar %}{% endblock %}
+            {% block sidebar %}
+                {% if  is_granted('ROLE_USER')%}
+                    {% include 'sidebar.html.twig' %}
+                {% endif %}
+            {% endblock %}
             <div class="body">
                 {% block body %}{% endblock %}
             </div>
