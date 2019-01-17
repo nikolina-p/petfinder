@@ -1,11 +1,5 @@
 {% extends "base.html.twig" %}
 
-{% block sidebar %}
-    {% if  is_granted('ROLE_USER')%}
-        {% include 'sidebar.html.twig' %}
-    {% endif %}
-{% endblock %}
-
 {% block body %}
     <div id = "petTable">
         <table id = "petTable" style="border: solid #1C440C">
@@ -22,7 +16,7 @@
                                 <br>
                                 {{ "Starost: "~pet.age }}
                                 {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
-                                    <a href="/edit/{{ pet.id }}" style="font-size: .7em">edit</a>
+                                    <a href="{{ path('edit_pet', {'id' : pet.id}) }}" style="font-size: .7em">edit</a>
                                 {% endif %}
                             </td>
                         {% endif %}
