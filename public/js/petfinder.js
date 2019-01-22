@@ -8,7 +8,7 @@ function deletePhoto(photoName) {
 function deletePet(petId) {
     let response = ajaxCall('/pet/delete/'+petId);
     if (response.status == 204) {
-        window.location.replace('/all');
+        window.location.replace('/');
         return;
     }
 }

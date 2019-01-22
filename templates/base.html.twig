@@ -17,7 +17,7 @@
         <div id="navigation">
             {% block navigation %}
                 {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
-                    <span><a href="/logout">logout</a></span>
+                    <span><a href="{{ path('app_logout') }}">logout</a></span>
                     <span><p>HI, {{ app.user.username }}!</p></span>
                 {% else %}
                     <span><a href="{{ path('user_registration') }}">register</a></span>
