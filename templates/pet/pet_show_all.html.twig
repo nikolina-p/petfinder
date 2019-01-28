@@ -15,7 +15,7 @@
                                 {{ "Ime: "~pet.name }}
                                 <br>
                                 {{ "Starost: "~pet.age }}
-                                {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
+                                {% if is_granted('edit', pet) %}
                                     <a href="{{ path('edit_pet', {'id' : pet.id}) }}" style="font-size: .7em">edit</a>
                                 {% endif %}
                             </td>
