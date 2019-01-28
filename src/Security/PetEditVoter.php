@@ -11,15 +11,7 @@ class PetEditVoter extends Voter
 {
     protected function supports($action, $subject)
     {
-        if ($action != 'edit') {
-            return false;
-        }
-
-        if (!$subject instanceof Pet) {
-            return false;
-        }
-
-        return true;
+        return $action === 'edit' && $subject instanceof Pet;
     }
 
     protected function voteOnAttribute($action, $subject, TokenInterface $token)
@@ -31,14 +23,11 @@ class PetEditVoter extends Voter
             return false;
         }
 
-        /** @var Pet $post */
-        $pet = $subject;
-
-        return $this->canEdit($pet, $user);
+        return $this->canEdit($subject, $user);
     }
 
     private function canEdit(Pet $pet, User $user)
     {
-        return ($user->getId() == $pet->getOwner()->getId() or $user->hasRole("ROLE_ADMIN"));
+        return $user->hasRole("ROLE_ADMIN") || $user->getId() === $pet->getOwner()->getId();
     }
 }
