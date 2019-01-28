@@ -54,12 +54,11 @@ class PetController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="edit_pet")
-     * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
+     * @Route("/edit/{id}", name="edit_pet")     *
+     * @Security("is_granted('edit', pet, 'Not allowed! You are not the owner.')")
      */
-    public function editPet($id, Request $request)
+    public function editPet(Pet $pet, Request $request)
     {
-        $pet = $this->petService->findById($id);
         $form = $this->createForm(PetForm::class, $pet);
 
         $form->handleRequest($request);

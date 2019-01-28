@@ -23,8 +23,11 @@ class PetForm extends AbstractType
     private $userTransformer;
     private $security;
 
-    public function __construct(PhotoTransformer $photoTransformer, UserTransformer $userTransformer, Security $security)
-    {
+    public function __construct(
+        PhotoTransformer $photoTransformer,
+        UserTransformer $userTransformer,
+        Security $security
+    ) {
         $this->photoTransformer = $photoTransformer;
         $this->userTransformer = $userTransformer;
         $this->security = $security;
