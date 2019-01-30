@@ -44,7 +44,7 @@ class Pet
      * @ORM\OneToMany(targetEntity="App\Entity\Photo", mappedBy="pet",
      *     cascade={"persist", "remove"})
      * @Assert\Valid(traverse="true")
-     * @Assert\NotBlank(groups="new")
+     * @Assert\NotBlank(groups={"new"})
      */
     private $photos;
 
