@@ -44,6 +44,7 @@ class Pet
      * @ORM\OneToMany(targetEntity="App\Entity\Photo", mappedBy="pet",
      *     cascade={"persist", "remove"})
      * @Assert\Valid(traverse="true")
+     * @Assert\NotBlank(groups="new")
      */
     private $photos;
 
@@ -99,10 +100,7 @@ class Pet
         return $this;
     }
 
-    /**
-     * @return Collection|Photo[]
-     */
-    public function getPhotos(): Collection
+    public function getPhotos(): ?Collection
     {
         return $this->photos;
     }

@@ -29,12 +29,6 @@ class PhotoTransformer implements DataTransformerInterface
      */
     public function reverseTransform($uploadedFiles): ?ArrayCollection
     {
-        if (count($uploadedFiles) == 0) {
-            throw new TransformationFailedException(sprintf(
-                'Please upload at least one photo of your pet!'
-            ));
-        }
-
         array_walk($uploadedFiles, function (&$file) {
             $photo = new Photo();
             $file = $photo->setFile($file);
