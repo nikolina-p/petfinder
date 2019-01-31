@@ -31,7 +31,9 @@ class PetController extends AbstractController
     public function new(Request $request) : Response
     {
         // creates a pet and creates a form for adding new pet
-        $form = $this->createForm(PetForm::class, $pet = new Pet());
+        $form = $this->createForm(PetForm::class, $pet = new Pet(), [
+            'validation_groups' => ['Pet', 'new']
+        ]);
 
         // 2) handle the submit (will only happen on POST)
         $form->handleRequest($request);
@@ -59,7 +61,9 @@ class PetController extends AbstractController
      */
     public function editPet(Pet $pet, Request $request)
     {
-        $form = $this->createForm(PetForm::class, $pet);
+        $form = $this->createForm(PetForm::class, $pet, [
+            'validation_groups' => ['Pet']
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
