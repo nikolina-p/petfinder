@@ -104,7 +104,7 @@ class User implements UserInterface, EquatableInterface
 
     public function setRoles(array $role): self
     {
-        $this->roles = array_merge($this->roles, $role);
+        $this->roles = array_unique(array_merge(['ROLE_USER'], $role), SORT_REGULAR);
         return $this;
     }
 
