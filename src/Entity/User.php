@@ -43,7 +43,7 @@ class User implements UserInterface, EquatableInterface
     private $roles = ['ROLE_USER'];
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Pet", mappedBy="owner")
+     * @ORM\OneToMany(targetEntity="App\Entity\Pet", mappedBy="owner", orphanRemoval=true)
      */
     private $pets;
 
@@ -104,7 +104,7 @@ class User implements UserInterface, EquatableInterface
 
     public function setRoles(array $role): self
     {
-        $this->roles = array_merge($this->roles, $role);
+        $this->roles = array_unique(array_merge(['ROLE_USER'], $role), SORT_REGULAR);
         return $this;
     }
 
