@@ -3,16 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Pet;
-use App\Entity\Photo;
 use App\Service\PetService;
 use App\Form\PetForm;
 use App\Exception\EntityNotDeletedException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class PetController extends AbstractController

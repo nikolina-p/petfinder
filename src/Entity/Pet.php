@@ -42,7 +42,7 @@ class Pet
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Photo", mappedBy="pet",
-     *     cascade={"persist", "remove"})
+     *     cascade={"persist", "remove"}, orphanRemoval = true)
      * @Assert\Valid(traverse="true")
      * @Assert\Count(
      *      min = "1",
