@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pet finder{% endblock %}
+
+{% block body %}
+    <body>
+    <div class="petTable">
+        <table id="petTable">
+            <tr>
+                <td>ID</td>
+                <td>Species</td>
+                <td>Edit</td>
+                <td>Delete</td>
+            </tr>
+            {% for singleSpecies in species %}
+                <tr>
+                    <td>{{ singleSpecies.id }}</td>
+                    <td>{{ singleSpecies.speciesName }}</td>
+                    <td>
+                        <a href = "{{ path('edit_species', {'id' : singleSpecies.id}) }}">edit</a>
+                    </td>
+                    <td>
+                        <a href = "{{ path('delete_species', { 'id' : singleSpecies.id }) }}">X</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <a href="{{ path('new_species') }}">New Species</a>
+    </div>
+    </body>
+{% endblock %}
