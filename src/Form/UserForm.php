@@ -22,7 +22,8 @@ class UserForm extends AbstractType
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password']])
+                'second_options' => ['label' => 'Repeat Password']
+            ])
             ->add('roles', ChoiceType::class, [
                     'choices' => [
                         'ADMIN' => 'ROLE_ADMIN'

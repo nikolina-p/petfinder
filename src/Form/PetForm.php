@@ -23,8 +23,11 @@ class PetForm extends AbstractType
     private $userTransformer;
     private $security;
 
-    public function __construct(PhotoTransformer $photoTransformer, UserTransformer $userTransformer, Security $security)
-    {
+    public function __construct(
+        PhotoTransformer $photoTransformer,
+        UserTransformer $userTransformer,
+        Security $security
+    ) {
         $this->photoTransformer = $photoTransformer;
         $this->userTransformer = $userTransformer;
         $this->security = $security;
@@ -39,7 +42,7 @@ class PetForm extends AbstractType
                 'label' => 'How old is the pet?',
                 'scale' => 2
             ])
-            ->add('photos', FileType::class, ['multiple' => true]);
+            ->add('photos', FileType::class, ['multiple' => true, 'required' => false]);
 
         if ($this->security->getUser()->hasRole("ROLE_ADMIN")) {
             $builder->add('owner', EntityType::class, [
@@ -59,7 +62,8 @@ class PetForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Pet::class
+            'data_class' => Pet::class,
+            'validation_groups' => ['Default', 'new']
         ]);
     }
 }

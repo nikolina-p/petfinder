@@ -31,7 +31,9 @@ class PetController extends AbstractController
     public function new(Request $request) : Response
     {
         // creates a pet and creates a form for adding new pet
-        $form = $this->createForm(PetForm::class, $pet = new Pet());
+        $form = $this->createForm(PetForm::class, $pet = new Pet(), [
+            'validation_groups' => ['Pet', 'new']
+        ]);
 
         // 2) handle the submit (will only happen on POST)
         $form->handleRequest($request);
@@ -54,13 +56,14 @@ class PetController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="edit_pet")
-     * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
+     * @Route("/edit/{id}", name="edit_pet")     *
+     * @Security("is_granted('edit', pet, 'Not allowed! You are not the owner.')")
      */
-    public function editPet($id, Request $request)
+    public function editPet(Pet $pet, Request $request)
     {
-        $pet = $this->petService->findById($id);
-        $form = $this->createForm(PetForm::class, $pet);
+        $form = $this->createForm(PetForm::class, $pet, [
+            'validation_groups' => ['Pet']
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
