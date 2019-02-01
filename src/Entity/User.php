@@ -43,7 +43,7 @@ class User implements UserInterface, EquatableInterface
     private $roles = ['ROLE_USER'];
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Pet", mappedBy="owner")
+     * @ORM\OneToMany(targetEntity="App\Entity\Pet", mappedBy="owner", orphanRemoval=true)
      */
     private $pets;
 
