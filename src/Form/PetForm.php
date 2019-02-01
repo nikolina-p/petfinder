@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Pet;
+use App\Entity\Species;
 use App\Form\PhotoTransformer;
 use App\Form\UserTransformer;
 use App\Entity\User;
@@ -41,6 +42,10 @@ class PetForm extends AbstractType
             ->add('age', NumberType::class, [
                 'label' => 'How old is the pet?',
                 'scale' => 2
+            ])
+            ->add('species', EntityType::class, [
+                'class' => Species::class,
+                'choice_label' => 'speciesName',
             ])
             ->add('photos', FileType::class, ['multiple' => true, 'required' => false]);
 

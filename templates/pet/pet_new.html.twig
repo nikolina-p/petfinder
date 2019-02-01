@@ -6,6 +6,7 @@
     {{ form_row(form.name) }}
     {{ form_row(form.description) }}
     {{ form_row(form.age) }}
+    {{ form_row(form.species) }}
     {% for photo in pet.photos %}
         <div id="{{ photo.photoName }}">
             <img src="{{ asset("uploads/photos/"~photo.photoName) }}"

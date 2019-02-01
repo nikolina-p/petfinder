@@ -12,9 +12,11 @@
                                     <img src="{{ asset("uploads/photos/"~photo.photoName) }}" style="width:150px; height: auto;">
                                 {% endfor %}
                                 <br>
-                                {{ "Ime: "~pet.name }}
+                                {{ "Name: "~pet.name }}
                                 <br>
-                                {{ "Starost: "~pet.age }}
+                                {{ "Age: "~pet.age }}
+                                <br>
+                                {{ "Species: "~pet.species.speciesName }}
                                 {% if is_granted('edit', pet) %}
                                     <a href="{{ path('edit_pet', {'id' : pet.id}) }}" style="font-size: .7em">edit</a>
                                 {% endif %}
