@@ -10,13 +10,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SpeciesForm extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
             $builder
                 ->add('speciesName', TextType::class, ['label' => 'Species name']);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Species::class,

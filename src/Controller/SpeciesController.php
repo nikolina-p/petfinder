@@ -25,7 +25,7 @@ class SpeciesController extends AbstractController
      * @Route("/species", name="species_show_all")
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function index()
+    public function index(): Response
     {
         $species = $this->speciesService->loadSpecies();
         return $this->render('species/index.html.twig', [
@@ -37,7 +37,7 @@ class SpeciesController extends AbstractController
      * @Route("/species/new", name="new_species")
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function newSpecies(Request $request)
+    public function newSpecies(Request $request): Response
     {
         $form = $this->createForm(SpeciesForm::class, $species = new Species());
         $form->handleRequest($request);
@@ -54,7 +54,7 @@ class SpeciesController extends AbstractController
      * @Route("/species/edit/{id}", name="edit_species")
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function editSpecies(Request $request, Species $species)
+    public function editSpecies(Request $request, Species $species): Response
     {
         $form = $this->createForm(SpeciesForm::class, $species);
         $form->handleRequest($request);
@@ -71,7 +71,7 @@ class SpeciesController extends AbstractController
      * @Route("/species/delete/{id}", name="delete_species")
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function deleteSpecies(Request $request, Species $species)
+    public function deleteSpecies(Request $request, Species $species): Response
     {
         try {
             $this->speciesService->deleteSpecies($species);
