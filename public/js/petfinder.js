@@ -16,7 +16,7 @@ function deletePet(petId) {
 function deleteSpecies(speciesId) {
     let response = ajaxCall('/species/delete/'+speciesId);
     if (response.status == 204) {
-        window.location.replace('/species');
+        document.getElementById(speciesId).style.display = 'none';
         return;
     }
 }
