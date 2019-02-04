@@ -1,5 +1,9 @@
 {% extends "base.html.twig" %}
 
+{% block search %}
+    <div id="search">
+    </div>
+{% endblock %}
 {% block body %}
     <div id = "petTable">
         <table id = "petTable">
@@ -12,13 +16,14 @@
                                     <img src="{{ asset("uploads/photos/"~photo.photoName) }}" style="width:150px; height: auto;">
                                 {% endfor %}
                                 <br>
-                                {{ "Name: "~pet.name }}
+                                <b>Name: </b>{{ pet.name }} <b>Age: </b>{{ pet.age }}
                                 <br>
-                                {{ "Age: "~pet.age }}
+                                <b>Species: </b>{{ pet.species.speciesName }} <b>Breed: </b>{{ pet.breed }}
                                 <br>
-                                {{ "Species: "~pet.species.speciesName }}
+                                <b>Gender: </b>{{ pet.gender }} <b>Owner: </b>{{ pet.owner.username }}
                                 {% if is_granted('edit', pet) %}
-                                    <a href="{{ path('edit_pet', {'id' : pet.id}) }}" style="font-size: .7em">edit</a>
+                                    <a href="{{ path('edit_pet', {'id' : pet.id}) }}" class="SmallLink">edit</a>
+                                    <a href="#" class="SmallLink" onclick="deletePet('{{ pet.id }}'); return false;">delete</a>
                                 {% endif %}
                             </td>
                         {% endif %}

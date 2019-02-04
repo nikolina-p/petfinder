@@ -22,6 +22,15 @@ class PetController extends AbstractController
     }
 
     /**
+     * @Route("/", name="index")
+     */
+    public function index(): Response
+    {
+        $pets = $this->petService->loadPets();
+        return $this->render("pet/pet_show_all.html.twig", ['pets' => $pets]);
+    }
+
+    /**
      * @Route("/new", name="new_pet")
      * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
      */
@@ -36,20 +45,11 @@ class PetController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->petService->newPet($pet);
-            return $this->redirectToRoute('new_pet');
+            return $this->redirectToRoute('index');
         }
         return $this->render('pet/pet_new.html.twig', array(
             'form' => $form->createView(), 'pet' => $pet
         ));
-    }
-
-    /**
-     * @Route("/", name="index")
-     */
-    public function index(): Response
-    {
-        $pets = $this->petService->loadPets();
-        return $this->render("pet/pet_show_all.html.twig", ['pets' => $pets]);
     }
 
     /**
