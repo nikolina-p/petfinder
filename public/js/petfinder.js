@@ -13,6 +13,14 @@ function deletePet(petId) {
     }
 }
 
+function deleteSpecies(speciesId) {
+    let response = ajaxCall('/species/delete/'+speciesId);
+    if (response.status == 204) {
+        document.getElementById(speciesId).style.display = 'none';
+        return;
+    }
+}
+
 function ajaxCall(route){
     let ajax = null;
     if(window.XMLHttpRequest) {

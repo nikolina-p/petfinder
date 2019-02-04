@@ -49,7 +49,7 @@ class PetController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index()
+    public function index(): Response
     {
         $pets = $this->petService->loadPets();
         return $this->render("pet/pet_show_all.html.twig", ['pets' => $pets]);
@@ -59,7 +59,7 @@ class PetController extends AbstractController
      * @Route("/edit/{id}", name="edit_pet")     *
      * @Security("is_granted('edit', pet, 'Not allowed! You are not the owner.')")
      */
-    public function editPet(Pet $pet, Request $request)
+    public function editPet(Pet $pet, Request $request): Response
     {
         $form = $this->createForm(PetForm::class, $pet, [
             'validation_groups' => ['Pet']
@@ -86,7 +86,7 @@ class PetController extends AbstractController
      * @Route("/photo/delete/{photoName}", name="delete_photo")
      * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
      */
-    public function deletePhoto(string $photoName)
+    public function deletePhoto(string $photoName): Response
     {
         try {
             $this->petService->deletePhoto($photoName);
@@ -100,7 +100,7 @@ class PetController extends AbstractController
      * @Route("/pet/delete/{petId}", name="delete_pet")
      * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
      */
-    public function deletePet(string $petId)
+    public function deletePet(string $petId): Response
     {
         try {
             $pet = $this->petService->findById($petId);

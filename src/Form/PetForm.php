@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Pet;
+use App\Entity\Species;
 use App\Form\PhotoTransformer;
 use App\Form\UserTransformer;
 use App\Entity\User;
@@ -33,7 +34,7 @@ class PetForm extends AbstractType
         $this->security = $security;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class, ['label' => 'Pet name'])
@@ -41,6 +42,10 @@ class PetForm extends AbstractType
             ->add('age', NumberType::class, [
                 'label' => 'How old is the pet?',
                 'scale' => 2
+            ])
+            ->add('species', EntityType::class, [
+                'class' => Species::class,
+                'choice_label' => 'speciesName',
             ])
             ->add('photos', FileType::class, ['multiple' => true, 'required' => false]);
 
@@ -59,7 +64,7 @@ class PetForm extends AbstractType
         $builder->get('photos')->addModelTransformer($this->photoTransformer);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Pet::class,

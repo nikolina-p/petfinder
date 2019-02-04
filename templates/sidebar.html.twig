@@ -8,6 +8,7 @@
         {% if is_granted('ROLE_ADMIN') %}
             <span><a href="{{ path('user_show_all') }}">Manage users</a></span><br>
             <span><a href="{{ path('user_create') }}">New user</a></span><br>
+            <span><a href="{{ path('species_show_all') }}">Manage species</a></span><br>
         {% endif %}
     {% endblock %}
 </span>

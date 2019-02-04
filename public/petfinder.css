@@ -26,6 +26,7 @@ div.body {
 table#petTable {
     margin:auto;
     width: 100%;
+    border: solid #1C440C;
 }
 p {
     margin: 0;
@@ -36,4 +37,13 @@ p {
 }
 * {
     box-sizing: border-box;
+}
+td {
+    border: solid #1C440C;
+}
+button.Small {
+    width: 25px;
+    border: none;
+    background-color: white;
+    color: #0000F0;
 }

@@ -58,6 +58,12 @@ class Pet
      */
     private $owner;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Species", inversedBy="pets")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $species;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -146,6 +152,18 @@ class Pet
     public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getSpecies(): ?Species
+    {
+        return $this->species;
+    }
+
+    public function setSpecies(?Species $species): self
+    {
+        $this->species = $species;
 
         return $this;
     }
