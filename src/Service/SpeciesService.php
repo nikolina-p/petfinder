@@ -34,9 +34,4 @@ class SpeciesService
     {
         $this->speciesRepository->delete($species);
     }
-
-    public function findById(int $id): Species
-    {
-        return $this->speciesRepository->find($id);
-    }
 }
