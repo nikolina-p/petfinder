@@ -2,7 +2,7 @@
 
 {% block body %}
     <div id = "petTable">
-        <table id = "petTable" style="border: solid #1C440C">
+        <table id = "petTable">
             {% for row in pets|batch(3, "") %}
                 <tr>
                     {% for pet in row %}
