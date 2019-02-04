@@ -6,9 +6,11 @@ use App\Entity\Pet;
 use App\Entity\Species;
 use App\Form\PhotoTransformer;
 use App\Form\UserTransformer;
+use App\Form\PetGenderTransformer;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -22,15 +24,18 @@ class PetForm extends AbstractType
 {
     private $photoTransformer;
     private $userTransformer;
+    private $petGenderTransformer;
     private $security;
 
     public function __construct(
         PhotoTransformer $photoTransformer,
         UserTransformer $userTransformer,
+        PetGenderTransformer $petGenderTransformer,
         Security $security
     ) {
         $this->photoTransformer = $photoTransformer;
         $this->userTransformer = $userTransformer;
+        $this->petGenderTransformer = $petGenderTransformer;
         $this->security = $security;
     }
 
@@ -47,6 +52,15 @@ class PetForm extends AbstractType
                 'class' => Species::class,
                 'choice_label' => 'speciesName',
             ])
+            ->add('gender', ChoiceType::class, [
+                'choices'  => [
+                    'Male' => 'MALE',
+                    'Female' => 'FEMALE',
+                    'Unknown' => "UNKNOWN",
+                    ],
+                //'choice_label' => 'petGender'
+            ])
+            ->add('breed', TextType::class, ['label' => 'Breed'])
             ->add('photos', FileType::class, ['multiple' => true, 'required' => false]);
 
         if ($this->security->getUser()->hasRole("ROLE_ADMIN")) {
@@ -62,6 +76,7 @@ class PetForm extends AbstractType
         }
 
         $builder->get('photos')->addModelTransformer($this->photoTransformer);
+        $builder->get('gender')->addModelTransformer($this->petGenderTransformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -64,6 +64,17 @@ class Pet
      */
     private $species;
 
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $gender;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $breed;
+
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -164,6 +175,30 @@ class Pet
     public function setSpecies(?Species $species): self
     {
         $this->species = $species;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): self
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getBreed(): ?string
+    {
+        return $this->breed;
+    }
+
+    public function setBreed(string $breed): self
+    {
+        $this->breed = $breed;
 
         return $this;
     }
