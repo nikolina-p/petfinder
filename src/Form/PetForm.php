@@ -57,8 +57,7 @@ class PetForm extends AbstractType
                     'Male' => 'MALE',
                     'Female' => 'FEMALE',
                     'Unknown' => "UNKNOWN",
-                    ],
-                //'choice_label' => 'petGender'
+                    ]
             ])
             ->add('breed', TextType::class, ['label' => 'Breed'])
             ->add('photos', FileType::class, ['multiple' => true, 'required' => false]);

@@ -50,4 +50,9 @@ class PetService
         }
         $this->petRepository->delete($pet);
     }
+
+    public function searchPets(Pet $pet): array
+    {
+        return $this->petRepository->searchPets($pet);
+    }
 }

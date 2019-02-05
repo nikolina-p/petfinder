@@ -2,10 +2,18 @@
 
 {% block search %}
     <div id="search">
+        {{ form_start(form) }}
+        {{ form_row(form.species) }}
+        {{ form_row(form.breed) }}
+        {{ form_row(form.gender) }}
+        {{ form_row(form.age) }}
+        <button type="submit">Find</button>
+        {{ form_end(form) }}
     </div>
 {% endblock %}
 {% block body %}
     <div id = "petTable">
+        <a href="{{ path('index') }}" class="SmallLink" style="float: right">home</a>
         <table id = "petTable">
             {% for row in pets|batch(3, "") %}
                 <tr>

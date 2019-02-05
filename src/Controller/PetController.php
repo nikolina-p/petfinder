@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Pet;
 use App\Service\PetService;
 use App\Form\PetForm;
+use App\Form\SearchForm;
 use App\Exception\EntityNotDeletedException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,10 +25,22 @@ class PetController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $pets = $this->petService->loadPets();
-        return $this->render("pet/pet_show_all.html.twig", ['pets' => $pets]);
+        $form = $this->createForm(SearchForm::class, $pet = new Pet());
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $pets = $this->petService->searchPets($pet);
+        } else {
+            $pets = $this->petService->loadPets();
+        }
+
+        return $this->render("pet/pet_show_all.html.twig", [
+            'form' => $form->createView(),
+            'pets' => $pets
+        ]);
     }
 
     /**
@@ -59,7 +72,7 @@ class PetController extends AbstractController
     public function editPet(Pet $pet, Request $request): Response
     {
         $form = $this->createForm(PetForm::class, $pet, [
-            'validation_groups' => ['Pet']
+            'validation_groups' => ['Pet', 'edit']
         ]);
 
         $form->handleRequest($request);
