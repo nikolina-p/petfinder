@@ -26,22 +26,30 @@ class PetRepository extends ServiceEntityRepository
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
         $queryBuilder->select('p')
             ->from('App:Pet', 'p');
-        if ($pet->getSpecies() !== null) $queryBuilder->where($queryBuilder->expr()->eq(
-            'p.species',
-            "'".$pet->getSpecies()->getId()."'"
-        ));
-        if ($pet->getBreed() !== null) $queryBuilder->andWhere($queryBuilder->expr()->like(
-            'p.breed',
-            "'%".$pet->getBreed()."%'"
-        ));
-        if ($pet->getGender() !== null) $queryBuilder->andWhere($queryBuilder->expr()->eq(
-            'p.gender',
-            "'".$pet->getGender()."'"
-        ));
-        if ($pet->getAge() !== null) $queryBuilder->andWhere($queryBuilder->expr()->eq(
-            'p.age',
-            $pet->getAge()
-        ));
+        if ($pet->getSpecies() !== null) {
+            $queryBuilder->where($queryBuilder->expr()->eq(
+                'p.species',
+                "'".$pet->getSpecies()->getId()."'"
+            ));
+        }
+        if ($pet->getBreed() !== null) {
+            $queryBuilder->andWhere($queryBuilder->expr()->like(
+                'p.breed',
+                "'%".$pet->getBreed()."%'"
+            ));
+        }
+        if ($pet->getGender() !== null) {
+            $queryBuilder->andWhere($queryBuilder->expr()->eq(
+                'p.gender',
+                "'".$pet->getGender()."'"
+            ));
+        }
+        if ($pet->getAge() !== null) {
+            $queryBuilder->andWhere($queryBuilder->expr()->eq(
+                'p.age',
+                $pet->getAge()
+            ));
+        }
         $query = $queryBuilder->getQuery();
         $result = $query->getResult();
 
