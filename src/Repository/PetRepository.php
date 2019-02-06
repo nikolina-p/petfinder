@@ -30,17 +30,17 @@ class PetRepository extends ServiceEntityRepository
 
         if ($petDTO->hasSpecies()) {
             $queryBuilder->where('p.species = :species')
-                ->setParameter('species',$petDTO->getSpeciesId());
+                ->setParameter('species', $petDTO->getSpeciesId());
         }
 
         if ($petDTO->hasBreed()) {
             $queryBuilder->andWhere('p.breed LIKE :breed')
-                ->setParameter('breed', "%".$petDTO->getBreed()."%");;
+                ->setParameter('breed', "%".$petDTO->getBreed()."%");
         }
 
         if ($petDTO->hasGender()) {
             $queryBuilder->andWhere('p.gender = :gender')
-                ->setParameter('gender',$petDTO->getGender());;
+                ->setParameter('gender', $petDTO->getGender());
         }
 
         if ($petDTO->hasAge()) {
