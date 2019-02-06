@@ -2,5 +2,13 @@ services:
   phpcs:
     config_path: phpcs.xml
     paths:
-      - src
+      - src/Controller
+      - src/DTO
+      - src/Entity
+      - src/Exception
+      - src/Form
+      - src/Repository
+      - src/Security
+      - src/Service
+      
 
