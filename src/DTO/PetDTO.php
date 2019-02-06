@@ -28,7 +28,11 @@ class PetDTO
 
     public function getSpeciesId(): ?int
     {
-        return $this->species->getId();
+        if ($this->getSpecies() !== null) {
+            return $this->species->getId();
+        }
+
+        return null;
     }
 
     public function getBreed(): ?string
