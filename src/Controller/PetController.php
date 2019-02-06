@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\DTO\PetDTO;
 use App\Entity\Pet;
 use App\Service\PetService;
 use App\Form\PetForm;
+use App\Form\SearchForm;
 use App\Exception\EntityNotDeletedException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +24,27 @@ class PetController extends AbstractController
     }
 
     /**
+     * @Route("/", name="index")
+     */
+    public function index(Request $request): Response
+    {
+        $form = $this->createForm(SearchForm::class, $petDTO = new PetDTO());
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $pets = $this->petService->searchPets($petDTO);
+        } else {
+            $pets = $this->petService->loadPets();
+        }
+
+        return $this->render("pet/pet_show_all.html.twig", [
+            'form' => $form->createView(),
+            'pets' => $pets
+        ]);
+    }
+
+    /**
      * @Route("/new", name="new_pet")
      * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')")
      */
@@ -36,20 +59,11 @@ class PetController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->petService->newPet($pet);
-            return $this->redirectToRoute('new_pet');
+            return $this->redirectToRoute('index');
         }
         return $this->render('pet/pet_new.html.twig', array(
             'form' => $form->createView(), 'pet' => $pet
         ));
-    }
-
-    /**
-     * @Route("/", name="index")
-     */
-    public function index(): Response
-    {
-        $pets = $this->petService->loadPets();
-        return $this->render("pet/pet_show_all.html.twig", ['pets' => $pets]);
     }
 
     /**
@@ -59,7 +73,7 @@ class PetController extends AbstractController
     public function editPet(Pet $pet, Request $request): Response
     {
         $form = $this->createForm(PetForm::class, $pet, [
-            'validation_groups' => ['Pet']
+            'validation_groups' => ['Pet', 'edit']
         ]);
 
         $form->handleRequest($request);

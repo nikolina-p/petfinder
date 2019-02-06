@@ -1,7 +1,19 @@
 {% extends "base.html.twig" %}
 
+{% block search %}
+    <div id="search">
+        {{ form_start(form) }}
+        {{ form_row(form.species) }}
+        {{ form_row(form.breed) }}
+        {{ form_row(form.gender) }}
+        {{ form_row(form.age) }}
+        <button type="submit">Find</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
 {% block body %}
     <div id = "petTable">
+        <a href="{{ path('index') }}" class="SmallLink" style="float: right">home</a>
         <table id = "petTable">
             {% for row in pets|batch(3, "") %}
                 <tr>
@@ -12,13 +24,14 @@
                                     <img src="{{ asset("uploads/photos/"~photo.photoName) }}" style="width:150px; height: auto;">
                                 {% endfor %}
                                 <br>
-                                {{ "Name: "~pet.name }}
+                                <b>Name: </b>{{ pet.name }} <b>Age: </b>{{ pet.age }}
                                 <br>
-                                {{ "Age: "~pet.age }}
+                                <b>Species: </b>{{ pet.species.speciesName }} <b>Breed: </b>{{ pet.breed }}
                                 <br>
-                                {{ "Species: "~pet.species.speciesName }}
+                                <b>Gender: </b>{{ pet.gender }} <b>Owner: </b>{{ pet.owner.username }}
                                 {% if is_granted('edit', pet) %}
-                                    <a href="{{ path('edit_pet', {'id' : pet.id}) }}" style="font-size: .7em">edit</a>
+                                    <a href="{{ path('edit_pet', {'id' : pet.id}) }}" class="SmallLink">edit</a>
+                                    <a href="#" class="SmallLink" onclick="deletePet('{{ pet.id }}'); return false;">delete</a>
                                 {% endif %}
                             </td>
                         {% endif %}

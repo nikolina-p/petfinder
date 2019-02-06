@@ -47,3 +47,6 @@ button.Small {
     background-color: white;
     color: #0000F0;
 }
+a.SmallLink {
+    font-size: .7em;
+}

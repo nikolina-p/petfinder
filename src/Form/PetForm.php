@@ -9,6 +9,7 @@ use App\Form\UserTransformer;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -47,6 +48,14 @@ class PetForm extends AbstractType
                 'class' => Species::class,
                 'choice_label' => 'speciesName',
             ])
+            ->add('gender', ChoiceType::class, [
+                'choices'  => [
+                    'Male' => 'MALE',
+                    'Female' => 'FEMALE',
+                    'Unknown' => "UNKNOWN",
+                    ]
+            ])
+            ->add('breed', TextType::class, ['label' => 'Breed'])
             ->add('photos', FileType::class, ['multiple' => true, 'required' => false]);
 
         if ($this->security->getUser()->hasRole("ROLE_ADMIN")) {

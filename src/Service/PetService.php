@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\DTO\PetDTO;
 use App\Repository\PetRepository;
 use App\Entity\Pet;
 
@@ -49,5 +50,10 @@ class PetService
             $this->deletePhoto($photo->getPhotoName());
         }
         $this->petRepository->delete($pet);
+    }
+
+    public function searchPets(PetDTO $petDTO): array
+    {
+        return $this->petRepository->searchPets($petDTO);
     }
 }

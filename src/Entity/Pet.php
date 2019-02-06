@@ -24,30 +24,30 @@ class Pet
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"new", "edit"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"new", "edit"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"new", "edit"})
      */
     private $age;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Photo", mappedBy="pet",
-     *     cascade={"persist", "remove"}, orphanRemoval = true)
-     * @Assert\Valid(traverse="true")
+     *     cascade={"persist", "remove"})
+     * @Assert\Valid(traverse="true", groups={"new"})
      * @Assert\Count(
      *      min = "1",
      *      minMessage = "You must upload at least one image",
-     *      groups="new"
+     *      groups={"new"}
      * )
      */
     private $photos;
@@ -55,14 +55,29 @@ class Pet
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="pets")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(groups={"new", "edit"})
      */
     private $owner;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Species", inversedBy="pets")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(groups={"new", "edit"})
      */
     private $species;
+
+    /**
+     * @ORM\Column(type="string", length=20)
+     * @Assert\NotBlank(groups={"new", "edit"})
+     */
+    private $gender;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(groups={"new", "edit"})
+     */
+    private $breed;
+
 
     public function __construct()
     {
@@ -164,6 +179,30 @@ class Pet
     public function setSpecies(?Species $species): self
     {
         $this->species = $species;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): self
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getBreed(): ?string
+    {
+        return $this->breed;
+    }
+
+    public function setBreed(string $breed): self
+    {
+        $this->breed = $breed;
 
         return $this;
     }
