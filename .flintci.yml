@@ -2,5 +2,5 @@ services:
   phpcs:
     config_path: phpcs.xml
     paths:
-      - src
+      - src/Form
 
