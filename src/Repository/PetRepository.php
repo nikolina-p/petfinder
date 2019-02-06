@@ -25,31 +25,28 @@ class PetRepository extends ServiceEntityRepository
     public function searchPets(PetDTO $petDTO)
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
-        $parameters = [];
         $queryBuilder->select('p')
             ->from('App:Pet', 'p');
 
-        if ($petDTO->getSpecies() !== null) {
-            $parameters['species'] = $petDTO->getSpecies()->getId();
-            $queryBuilder->where('p.species = :species');
+        if ($petDTO->hasSpecies()) {
+            $queryBuilder->where('p.species = :species')
+                ->setParameter('species',$petDTO->getSpeciesId());
         }
 
-        if ($petDTO->getBreed() !== null) {
-            $parameters['breed'] = '%'.$petDTO->getBreed().'%';
-            $queryBuilder->andWhere('p.breed LIKE :breed');
+        if ($petDTO->hasBreed()) {
+            $queryBuilder->andWhere('p.breed LIKE :breed')
+                ->setParameter('breed', "%".$petDTO->getBreed()."%");;
         }
 
-        if ($petDTO->getGender() !== null) {
-            $parameters['gender'] = $petDTO->getGender();
-            $queryBuilder->andWhere('p.gender = :gender');
+        if ($petDTO->hasGender()) {
+            $queryBuilder->andWhere('p.gender = :gender')
+                ->setParameter('gender',$petDTO->getGender());;
         }
 
-        if ($petDTO->getAge() !== null) {
-            $parameters['age'] = $petDTO->getAge();
-            $queryBuilder->andWhere('p.age = :age');
+        if ($petDTO->hasAge()) {
+            $queryBuilder->andWhere('p.age = :age')
+                ->setParameter('age', $petDTO->getAge());
         }
-
-        $queryBuilder->setParameters($parameters);
 
         return $queryBuilder->getQuery()->getResult();
     }

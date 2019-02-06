@@ -26,6 +26,11 @@ class PetDTO
         return $this->species;
     }
 
+    public function getSpeciesId(): ?int
+    {
+        return $this->species->getId();
+    }
+
     public function getBreed(): ?string
     {
         return $this->breed;
@@ -65,5 +70,25 @@ class PetDTO
         $this->gender = $gender;
 
         return $this;
+    }
+
+    public function hasSpecies(): bool
+    {
+        return $this->species !== null;
+    }
+
+    public function hasBreed(): bool
+    {
+        return $this->breed !== null;
+    }
+
+    public function hasAge(): bool
+    {
+        return $this->age !== null;
+    }
+
+    public function hasGender(): bool
+    {
+        return $this->gender !== null;
     }
 }
