@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\DTO\PetDTO;
 use App\Entity\Pet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -21,38 +22,35 @@ class PetRepository extends ServiceEntityRepository
         parent::__construct($registry, Pet::class);
     }
 
-    public function searchPets(Pet $pet)
+    public function searchPets(PetDTO $petDTO)
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $parameters = [];
         $queryBuilder->select('p')
             ->from('App:Pet', 'p');
-        if ($pet->getSpecies() !== null) {
-            $queryBuilder->where($queryBuilder->expr()->eq(
-                'p.species',
-                "'".$pet->getSpecies()->getId()."'"
-            ));
-        }
-        if ($pet->getBreed() !== null) {
-            $queryBuilder->andWhere($queryBuilder->expr()->like(
-                'p.breed',
-                "'%".$pet->getBreed()."%'"
-            ));
-        }
-        if ($pet->getGender() !== null) {
-            $queryBuilder->andWhere($queryBuilder->expr()->eq(
-                'p.gender',
-                "'".$pet->getGender()."'"
-            ));
-        }
-        if ($pet->getAge() !== null) {
-            $queryBuilder->andWhere($queryBuilder->expr()->eq(
-                'p.age',
-                $pet->getAge()
-            ));
-        }
-        $query = $queryBuilder->getQuery();
-        $result = $query->getResult();
 
-        return $result;
+        if ($petDTO->getSpecies() !== null) {
+            $parameters['species'] = $petDTO->getSpecies()->getId();
+            $queryBuilder->where('p.species = :species');
+        }
+
+        if ($petDTO->getBreed() !== null) {
+            $parameters['breed'] = '%'.$petDTO->getBreed().'%';
+            $queryBuilder->andWhere('p.breed LIKE :breed');
+        }
+
+        if ($petDTO->getGender() !== null) {
+            $parameters['gender'] = $petDTO->getGender();
+            $queryBuilder->andWhere('p.gender = :gender');
+        }
+
+        if ($petDTO->getAge() !== null) {
+            $parameters['age'] = $petDTO->getAge();
+            $queryBuilder->andWhere('p.age = :age');
+        }
+
+        $queryBuilder->setParameters($parameters);
+
+        return $queryBuilder->getQuery()->getResult();
     }
 }

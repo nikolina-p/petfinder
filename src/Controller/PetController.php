@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\DTO\PetDTO;
 use App\Entity\Pet;
 use App\Service\PetService;
 use App\Form\PetForm;
@@ -27,12 +28,12 @@ class PetController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $form = $this->createForm(SearchForm::class, $pet = new Pet());
+        $form = $this->createForm(SearchForm::class, $petDTO = new PetDTO());
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $pets = $this->petService->searchPets($pet);
+            $pets = $this->petService->searchPets($petDTO);
         } else {
             $pets = $this->petService->loadPets();
         }

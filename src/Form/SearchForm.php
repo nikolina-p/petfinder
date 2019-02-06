@@ -2,10 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Pet;
-use App\Entity\Photo;
+use App\DTO\PetDTO;
 use App\Entity\Species;
-use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -46,7 +44,7 @@ class SearchForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Pet::class,
+            'data_class' => PetDTO::class,
         ]);
     }
 }
