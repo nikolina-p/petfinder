@@ -4,6 +4,7 @@ namespace App\Tests\Form;
 
 use App\Entity\Pet;
 use App\Entity\Species;
+use App\Entity\User;
 use App\Form\PetForm;
 use App\Form\PhotoTransformer;
 use App\Form\UserTransformer;
@@ -11,20 +12,12 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PetFormTest extends TypeTestCase
 {
     private $photoTransformer;
     private $userTransformer;
     private $security;
-    private $containerInterface;
-
-    public function __construct(ContainerInterface $containerInterface)
-    {
-        parent::__construct("PetFormTesting", [], '');
-        $this->containerInterface = $containerInterface;
-    }
 
     public function testSubmitValidData()
     {
@@ -62,7 +55,13 @@ class PetFormTest extends TypeTestCase
     {
         $this->photoTransformer = $this->createMock(PhotoTransformer::class);
         $this->userTransformer = $this->createMock(UserTransformer::class);
-        $this->security = new Security($this->containerInterface );
+        $this->security = $this->createMock(Security::class);
+
+        $user = new User();
+        $user->setRoles(['ROLE_ADMIN']);
+
+        $this->security->method('getUser')
+            ->willReturn($user);
 
         parent::setUp();
     }
