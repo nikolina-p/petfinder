@@ -10,6 +10,7 @@ use App\Form\PetForm;
 use App\Form\PhotoTransformer;
 use App\Form\UserTransformer;
 use App\Kernel;
+use App\Service\UserService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\PreloadedExtension;
@@ -58,14 +59,14 @@ class PetFormTest extends TypeTestCase
         $photo->setFile($uploadedFile);
 
         $formData = [
-            'name' => "niki",
+            'name' => "nik",
             'description' => 'opis',
             'age' => 12,
-            'species' => new Species(),
+            'species' => (new Species())->setSpeciesName('pas'),
             'gender' => 'MALE',
             'breed' => 'neka vrsta',
-            'photos' => new ArrayCollection([$photo]),
-            'owner' => $user,
+            'photos' => new ArrayCollection([$photo]), //transformer
+            'owner' => $user, //transformer
         ];
 
         $objectToCompare = new Pet();
@@ -73,6 +74,15 @@ class PetFormTest extends TypeTestCase
         $form = $this->factory->create(PetForm::class, $objectToCompare);
 
         $object = new Pet();
+        $object->setName('nik');
+        $object->setDescription('opis');
+        $object->setAge(12);
+        $object->setSpecies((new Species())->setSpeciesName('pas'));
+        $object->setGender('MALE');
+        $object->setBreed('neka vrsta');
+        $object->setPhotos(new ArrayCollection([$photo]));
+        $object->setOwner($user);
+
 
         $form->submit($formData);
 
@@ -90,20 +100,19 @@ class PetFormTest extends TypeTestCase
 
     protected function setUp()
     {
-        $this->photoTransformer = $this->createMock(PhotoTransformer::class);
         $this->userTransformer = $this->createMock(UserTransformer::class);
-        $this->security = $this->createMock(Security::class);
+        $this->userTransformer->method('transform')->willReturn(rand(1,30));
+        $this->userTransformer->method('reverseTransform')->willReturn(new User());
 
+        $this->photoTransformer = new PhotoTransformer();
+
+        $this->security = $this->createMock(Security::class);
         $user = new User();
         $user->setRoles(['ROLE_ADMIN']);
-
-        $this->security->method('getUser')
-            ->willReturn($user);
+        $this->security->method('getUser')->willReturn($user);
 
         parent::setUp();
     }
-
-
 
     protected function getExtensions()
     {
